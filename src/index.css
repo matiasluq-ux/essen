@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* Colores Essen personalizados */
+@layer utilities {
+  .text-essen {
+    @apply text-amber-700;
+  }
+  .bg-essen {
+    @apply bg-amber-700 text-white;
+  }
+}
