@@ -57,7 +57,7 @@ export default function Carousel() {
             className="w-full flex-shrink-0 h-48 sm:h-64 md:h-80 lg:h-[500px]"
           >
             <img
-              src={img.imageUrl}
+              src={img.Url}
               alt={`slide-${i}`}
               className="w-full h-full object-cover"
             />
