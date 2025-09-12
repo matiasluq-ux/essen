@@ -1,68 +1,74 @@
-import React, { useState } from "react"
-import Carousel from "./components/Carousel.jsx"
-import ShopProductList from "./components/ShopProductList.jsx"
-import Cart from "./components/Cart.jsx"
-import Login from "./pages/login.jsx"
-import AdminPanel from "./pages/adminpanel.jsx"
+// src/App.jsx
+import React, { useState } from "react";
+import Carousel from "./components/Carousel.jsx";
+import ShopProductList from "./components/ShopProductList.jsx";
+import Cart from "./components/Cart.jsx";
+import Login from "./pages/login.jsx";
+import AdminPanel from "./pages/adminpanel.jsx";
+import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
 
-const WHATSAPP_NUMBER = "5491159122734" // Maty's number
+const WHATSAPP_NUMBER = "5491159122734"; // Maty's number
 
 export default function App() {
-  const [user, setUser] = useState(null)
-  const [showAdmin, setShowAdmin] = useState(false)
+  const [user, setUser] = useState(null);
+  const [showAdmin, setShowAdmin] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800">
-      {/* Header */}
-      <header className="w-full bg-amber-100 shadow">
-        {/* Leyenda */}
-        <div className="text-center py-2 text-sm text-gray-700 bg-amber-200">
-          Bienvenido a nuestra tienda Essen ✨ Calidad que acompaña tu cocina
-        </div>
-
-        {/* Menú principal */}
-        <div className="max-w-6xl mx-auto flex items-center justify-between p-4">
-          <div className="text-2xl font-semibold text-amber-700">
-            Essen - Tu Tienda
-          </div>
-          <nav className="space-x-6 text-gray-800 font-medium">
-            <button
-              onClick={() =>
-                window.scrollTo({
-                  top: document.body.scrollHeight / 3,
-                  behavior: "smooth",
-                })
-              }
-              className="hover:text-amber-600 transition"
-            >
-              Productos
-            </button>
-            <button
-              onClick={() => setShowAdmin((s) => !s)}
-              className="hover:text-amber-600 transition"
-            >
-              Admin
-            </button>
-          </nav>
-        </div>
-      </header>
+    <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
+      {/* Navbar */}
+      <Navbar onToggleAdmin={() => setShowAdmin((s) => !s)} />
 
       {/* Contenido público */}
-      <main className="max-w-6xl mx-auto mt-6 px-4">
+      <main className="flex-grow max-w-6xl mx-auto mt-6 px-4">
+        {/* Carrusel */}
         <Carousel />
 
-        <section className="max-w-4xl mx-auto mt-8 px-4">
-          <h2 className="text-xl font-semibold">Nuestra Misión</h2>
-          <p className="mt-2 text-gray-700">
+        {/* Sección Misión */}
+        <section id="sobre-nosotros" className="max-w-4xl mx-auto mt-12 px-4">
+          <h2 className="text-2xl font-semibold text-amber-700">Nuestra Misión</h2>
+          <p className="mt-3 text-gray-700 leading-relaxed">
             Ofrecer productos de cocina de alta calidad que faciliten la vida
             diaria, con atención cercana y propuestas para emprendedores.
             (Edita desde Admin)
           </p>
         </section>
 
-        <ShopProductList />
+        {/* Lista de productos */}
+        <section id="productos" className="mt-12">
+          <h2 className="text-2xl font-semibold text-amber-700 mb-6">
+            Productos
+          </h2>
+          <ShopProductList />
+        </section>
+
+        {/* Carrito */}
         <Cart whatsappNumber={WHATSAPP_NUMBER} />
+
+        {/* Sección Eventos */}
+        <section id="eventos" className="max-w-4xl mx-auto mt-16 px-4">
+          <h2 className="text-2xl font-semibold text-amber-700">Eventos</h2>
+          <p className="mt-3 text-gray-700">
+            Aquí podrás encontrar información sobre nuestras próximas reuniones,
+            lanzamientos y capacitaciones. (Edita desde Admin)
+          </p>
+        </section>
+
+        {/* Sección Sumate */}
+        <section id="sumate" className="max-w-4xl mx-auto mt-16 px-4">
+          <h2 className="text-2xl font-semibold text-amber-700">
+            Sumate a mi equipo
+          </h2>
+          <p className="mt-3 text-gray-700">
+            Animate a emprender con nosotros y formá parte de un equipo en
+            crecimiento. Conocé los beneficios y oportunidades de sumarte a
+            Essen. (Edita desde Admin)
+          </p>
+        </section>
       </main>
+
+      {/* Footer */}
+      <Footer />
 
       {/* Panel Admin */}
       {showAdmin && (
@@ -88,5 +94,6 @@ export default function App() {
         </div>
       )}
     </div>
-  )
+  );
 }
+
