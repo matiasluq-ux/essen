@@ -1,52 +1,60 @@
-import React, { useEffect, useState } from "react";
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+// src/components/ShopProductList.jsx
+import React, { useState, useEffect } from "react"
+import { collection, onSnapshot } from "firebase/firestore"
+import { db } from "../firebase"
 
 export default function ShopProductList() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const snapshot = await getDocs(collection(db, "products"));
-      const loadedProducts = snapshot.docs.map((doc, idx) => ({
-        // 👇 Aseguramos que cada producto tenga un id numérico consistente para el carrito
-        id: idx + 1,
-        docId: doc.id, // mantenemos el id real de Firebase por si lo necesitás
-        ...doc.data(),
-      }));
-      setProducts(loadedProducts);
+    const unsub = onSnapshot(collection(db, "products"), (snapshot) => {
+      setProducts(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })))
+    })
+    return () => unsub()
+  }, [])
 
-      // 🔑 Guardamos también en localStorage para que el carrito pueda leerlos
-      localStorage.setItem("ew_products_v1", JSON.stringify(loadedProducts));
-    };
-    fetchProducts();
-  }, []);
+  if (products.length === 0) {
+    return (
+      <div className="mt-8 text-center text-gray-600">
+        No hay productos disponibles.
+      </div>
+    )
+  }
 
   return (
-    <section className="mt-8">
-      <h2 className="text-xl font-semibold mb-4">Nuestros Productos</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <section className="mt-10">
+      <h3 className="text-xl font-semibold mb-6 text-amber-700">
+        Nuestros Productos
+      </h3>
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((p) => (
           <div
             key={p.id}
-            className="border rounded-lg p-4 shadow hover:shadow-md bg-white"
+            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg hover:-translate-y-1 transition transform duration-200"
           >
             <img
-              src={p.imageUrl}
-              alt={p.title}
-              className="w-full h-40 object-cover rounded"
+              src={
+                p.img ||
+                p.image ||
+                "https://via.placeholder.com/400x300?text=Sin+imagen"
+              }
+              alt={p.title ?? p.name}
+              className="w-full h-48 object-cover"
             />
-            <h3 className="mt-2 font-medium">{p.title}</h3>
-            <p className="text-amber-600 font-bold">${p.price}</p>
-            <button
-              className="mt-2 w-full bg-amber-600 text-white py-2 rounded hover:bg-amber-700 add-to-cart"
-              data-product={p.id} // 👈 esto es lo que engancha el Cart.jsx
-            >
-              Agregar al carrito
-            </button>
+            <div className="p-4 flex flex-col">
+              <h4 className="font-semibold text-lg mb-1">
+                {p.title ?? p.name}
+              </h4>
+              <p className="text-amber-600 font-bold mb-3">
+                ${Number(p.price || 0).toLocaleString()}
+              </p>
+              <button className="mt-auto bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 transition">
+                Agregar al carrito
+              </button>
+            </div>
           </div>
         ))}
       </div>
     </section>
-  );
+  )
 }
