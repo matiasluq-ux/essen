@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { db } from "../firebase"
 import { collection, getDocs } from "firebase/firestore"
-import { motion, AnimatePresence } from "framer-motion"
 
 export default function Carousel() {
   const [images, setImages] = useState([])
