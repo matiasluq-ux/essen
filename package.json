@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "essen-web-starter",
   "version": "1.0.0",
   "private": true,
@@ -21,9 +20,7 @@
     "postcss": "^8.4.24",
     "tailwindcss": "^3.4.7",
     "vite": "^5.4.20"
-=======
   "dependencies": {
     "framer-motion": "^12.23.12"
->>>>>>> 41d8ec41877ff1396e97df47fb012d2280cbd2c1
   }
 }
