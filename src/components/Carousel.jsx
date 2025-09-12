@@ -35,23 +35,17 @@ export default function Carousel() {
   }
 
   return (
-    <section className="relative overflow-hidden rounded-lg shadow-md h-64">
-      <AnimatePresence initial={false}>
-        <motion.img
-          key={idx}
-          src={images[idx].url}
-          alt={`banner-${idx}`}
-          className="w-full h-64 object-cover absolute"
-          initial={{ x: "100%" }}
-          animate={{ x: 0 }}
-          exit={{ x: "-100%" }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-        />
-      </AnimatePresence>
-
+    <section className="relative overflow-hidden rounded-lg">
+      <img
+        src={images[idx].url}
+        alt={`banner-${idx}`}
+        className="w-full h-64 object-cover"
+      />
       <div className="absolute inset-0 flex items-center justify-between p-4">
         <button
-          onClick={() => setIdx((i) => (i - 1 + images.length) % images.length)}
+          onClick={() =>
+            setIdx((i) => (i - 1 + images.length) % images.length)
+          }
           className="bg-white/70 rounded p-2"
         >
           ‹
@@ -66,5 +60,6 @@ export default function Carousel() {
     </section>
   )
 }
+
 
 
