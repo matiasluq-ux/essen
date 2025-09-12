@@ -50,7 +50,7 @@ export default function Carousel() {
         {images.map((img, i) => (
           <img
             key={img.id}
-            src={img.imageUrl}
+            src={img.url}
             alt={`slide-${i}`}
             className="w-full h-64 object-cover flex-shrink-0"
           />
