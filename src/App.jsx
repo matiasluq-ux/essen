@@ -5,8 +5,8 @@ import ShopProductList from "./components/ShopProductList.jsx";
 import Cart from "./components/Cart.jsx";
 import Login from "./pages/login.jsx";
 import AdminPanel from "./pages/adminpanel.jsx";
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
+import Navbar from "./components/navbar.jsx";
+import Footer from "./components/footer.jsx";
 
 const WHATSAPP_NUMBER = "5491159122734"; // Maty's number
 
