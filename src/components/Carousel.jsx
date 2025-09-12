@@ -35,30 +35,38 @@ export default function Carousel() {
 
   if (images.length === 0) {
     return (
-      <div className="w-full h-64 flex items-center justify-center bg-gray-100 rounded-lg">
+      <div className="w-full h-48 sm:h-64 md:h-80 flex items-center justify-center bg-gray-100 rounded-lg">
         <p className="text-gray-500">No hay imágenes en el carrusel</p>
       </div>
     );
   }
 
   return (
-    <section className="relative w-full max-w-5xl mx-auto overflow-hidden rounded-lg shadow-lg">
+    <section className="relative w-full overflow-hidden rounded-lg shadow-lg">
+      {/* Slides */}
       <div
-        className="flex transition-transform duration-700"
-        style={{ transform: `translateX(-${idx * 100}%)`, width: `${images.length * 100}%` }}
+        className="flex transition-transform duration-700 ease-in-out"
+        style={{
+          transform: `translateX(-${idx * 100}%)`,
+          width: `${images.length * 100}%`,
+        }}
       >
         {images.map((img, i) => (
-          <img
+          <div
             key={img.id}
-            src={img.url}
-            alt={`slide-${i}`}
-            className="w-full h-64 object-cover flex-shrink-0"
-          />
+            className="w-full flex-shrink-0 h-48 sm:h-64 md:h-80 lg:h-[500px]"
+          >
+            <img
+              src={img.imageUrl}
+              alt={`slide-${i}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
         ))}
       </div>
 
-      {/* Botones de navegación */}
-      <div className="absolute inset-0 flex items-center justify-between p-4">
+      {/* Botones */}
+      <div className="absolute inset-0 flex items-center justify-between px-4">
         <button
           onClick={() => setIdx((i) => (i - 1 + images.length) % images.length)}
           className="bg-white/70 hover:bg-white text-xl rounded-full p-2 shadow"
