@@ -10,10 +10,7 @@
   },
   "dependencies": {
     "firebase": "^12.2.1",
-<<<<<<< HEAD
     "lucide-react": "^0.544.0",
-=======
->>>>>>> bc02a384f5a36671079d99dcca4d88be056eab10
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
