@@ -1,12 +1,12 @@
 // src/App.jsx
 import React, { useState } from "react";
+import Navbar from "./components/Navbar.jsx";
 import Carousel from "./components/Carousel.jsx";
 import ShopProductList from "./components/ShopProductList.jsx";
 import Cart from "./components/Cart.jsx";
 import Login from "./pages/login.jsx";
 import AdminPanel from "./pages/adminpanel.jsx";
-import Navbar from "./components/navbar.jsx";
-import Footer from "./components/footer.jsx";
+import Footer from "./components/Footer.jsx";
 
 const WHATSAPP_NUMBER = "5491159122734"; // Maty's number
 
@@ -20,50 +20,66 @@ export default function App() {
       <Navbar onToggleAdmin={() => setShowAdmin((s) => !s)} />
 
       {/* Contenido público */}
-      <main className="flex-grow max-w-6xl mx-auto mt-6 px-4">
-        {/* Carrusel */}
-        <Carousel />
+      <main className="flex-grow">
+        {/* Hero / Carousel */}
+        <section id="inicio" className="w-full">
+          <Carousel />
+        </section>
 
-        {/* Sección Misión */}
-        <section id="sobre-nosotros" className="max-w-4xl mx-auto mt-12 px-4">
-          <h2 className="text-2xl font-semibold text-amber-700">Nuestra Misión</h2>
-          <p className="mt-3 text-gray-700 leading-relaxed">
+        {/* Nuestra misión */}
+        <section
+          id="sobre-nosotros"
+          className="max-w-6xl mx-auto mt-10 px-4 sm:px-6 lg:px-8"
+        >
+          <h2 className="text-2xl sm:text-3xl font-semibold text-center">
+            Nuestra Misión
+          </h2>
+          <p className="mt-4 text-gray-700 text-center max-w-3xl mx-auto">
             Ofrecer productos de cocina de alta calidad que faciliten la vida
             diaria, con atención cercana y propuestas para emprendedores.
             (Edita desde Admin)
           </p>
         </section>
 
-        {/* Lista de productos */}
-        <section id="productos" className="mt-12">
-          <h2 className="text-2xl font-semibold text-amber-700 mb-6">
-            Productos
-          </h2>
+        {/* Productos */}
+        <section
+          id="productos"
+          className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
+        >
           <ShopProductList />
         </section>
 
-        {/* Carrito */}
-        <Cart whatsappNumber={WHATSAPP_NUMBER} />
-
-        {/* Sección Eventos */}
-        <section id="eventos" className="max-w-4xl mx-auto mt-16 px-4">
-          <h2 className="text-2xl font-semibold text-amber-700">Eventos</h2>
-          <p className="mt-3 text-gray-700">
-            Aquí podrás encontrar información sobre nuestras próximas reuniones,
-            lanzamientos y capacitaciones. (Edita desde Admin)
+        {/* Eventos */}
+        <section
+          id="eventos"
+          className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
+        >
+          <h2 className="text-2xl sm:text-3xl font-semibold text-center">
+            Eventos
+          </h2>
+          <p className="mt-4 text-gray-700 text-center">
+            Muy pronto compartiremos talleres, capacitaciones y experiencias
+            únicas para vos. ¡Estate atento!
           </p>
         </section>
 
-        {/* Sección Sumate */}
-        <section id="sumate" className="max-w-4xl mx-auto mt-16 px-4">
-          <h2 className="text-2xl font-semibold text-amber-700">
+        {/* Sumate a mi equipo */}
+        <section
+          id="sumate"
+          className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
+        >
+          <h2 className="text-2xl sm:text-3xl font-semibold text-center">
             Sumate a mi equipo
           </h2>
-          <p className="mt-3 text-gray-700">
-            Animate a emprender con nosotros y formá parte de un equipo en
-            crecimiento. Conocé los beneficios y oportunidades de sumarte a
-            Essen. (Edita desde Admin)
+          <p className="mt-4 text-gray-700 text-center max-w-3xl mx-auto">
+            Unite a nuestro equipo Essen y descubrí una forma de emprender con
+            propósito, respaldo y acompañamiento constante.
           </p>
+        </section>
+
+        {/* Carrito */}
+        <section className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
+          <Cart whatsappNumber={WHATSAPP_NUMBER} />
         </section>
       </main>
 
@@ -93,6 +109,10 @@ export default function App() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
     </div>
   );
 }
