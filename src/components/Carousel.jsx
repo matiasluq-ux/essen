@@ -60,7 +60,7 @@ export default function Carousel() {
         {images.map((img, i) => (
           <div key={img.id} className="w-full flex-shrink-0 h-48 sm:h-64 md:h-80 lg:h-[500px] flex items-center justify-center bg-gray-100">
             {/* object-contain para evitar recortes; si preferís llenar siempre usa object-cover */}
-            <img src={img.src} alt={img.title || `slide-${i}`} className="w-full h-[500px] object-contain rounded-lg bg-black" />
+            <img src={img.src} alt={img.title || `slide-${i}`} className="w-full h-[500px] object-cover rounded-lg" />
           </div>
         ))}
       </div>
