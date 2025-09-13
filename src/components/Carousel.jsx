@@ -35,14 +35,14 @@ export default function Carousel() {
 
   if (images.length === 0) {
     return (
-      <div className="w-full h-48 sm:h-64 md:h-80 flex items-center justify-center bg-gray-100 rounded-lg">
+      <div className="container w-full h-48 sm:h-64 md:h-80 flex items-center justify-center bg-gray-100 rounded-lg">
         <p className="text-gray-500">No hay imágenes en el carrusel</p>
       </div>
     );
   }
 
   return (
-    <section className="relative w-full overflow-hidden rounded-lg shadow-lg">
+    <section className="container relative w-full overflow-hidden rounded-lg shadow-lg">
       {/* Slides */}
       <div
         className="flex transition-transform duration-700 ease-in-out"
@@ -96,3 +96,4 @@ export default function Carousel() {
     </section>
   );
 }
+
