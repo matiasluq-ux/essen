@@ -1,28 +1,27 @@
-// src/components/ShopProductList.jsx
-import React, { useState, useEffect } from "react"
-import { collection, onSnapshot } from "firebase/firestore"
-import { db } from "../firebase"
+import React, { useState, useEffect } from "react";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function ShopProductList() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "products"), (snapshot) => {
-      setProducts(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })))
-    })
-    return () => unsub()
-  }, [])
+      setProducts(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
+    });
+    return () => unsub();
+  }, []);
 
   if (products.length === 0) {
     return (
-      <div className="mt-8 text-center text-gray-600">
+      <div className="container mt-8 text-center text-gray-600">
         No hay productos disponibles.
       </div>
-    )
+    );
   }
 
   return (
-    <section className="mt-10">
+    <section className="container mt-10">
       <h3 className="text-xl font-semibold mb-6 text-amber-700">
         Nuestros Productos
       </h3>
@@ -56,5 +55,6 @@ export default function ShopProductList() {
         ))}
       </div>
     </section>
-  )
+  );
 }
+
