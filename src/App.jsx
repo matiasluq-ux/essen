@@ -30,9 +30,19 @@ export default function App() {
             Nuestra Misión
           </h2>
           <p className="mt-4 text-gray-700 text-center max-w-3xl mx-auto">
-            Ofrecer productos de cocina de alta calidad que faciliten la vida
-            diaria, con atención cercana y propuestas para emprendedores.
-            (Edita desde Admin)
+           💚 Emprendedora & Líder Essen
+Apasionada por ayudarte a transformar tu alimentación 🥦🍲
+📚 Estudiante de Health Coach
+👩‍👧 Mamá x3, y junto a Mati, mi pareja, trabajamos 100% enfocados en brindarte la mejor atención 🤝
+
+✨ Más de 1500 clientes felices en todo el país
+✨ Y un equipo de más de 50 personas creciendo a la par
+
+🚀 ¿Te gustaría emprender sin riesgos y sin inversión?
+💬 Escribinos, te estamos esperando para acompañarte en este camino.
+
+😅 Advertencia: sumarse puede causar felicidad, ingresos extra y ataques de entusiasmo repentinos.
+(Acompañado de mates, stickers y muchos audios, claro 😉)
           </p>
         </section>
 
