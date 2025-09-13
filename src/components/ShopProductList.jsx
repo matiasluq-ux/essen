@@ -47,9 +47,12 @@ export default function ShopProductList() {
               <p className="text-amber-600 font-bold mb-3">
                 ${Number(p.price || 0).toLocaleString()}
               </p>
-              <button className="mt-auto bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 transition">
-                Agregar al carrito
-              </button>
+              <button
+  className="add-to-cart mt-auto bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 transition"
+  data-product={p.id}
+>
+  Agregar al carrito
+</button>
             </div>
           </div>
         ))}
