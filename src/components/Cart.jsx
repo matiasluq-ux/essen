@@ -13,7 +13,7 @@ export default function Cart(){
   useEffect(() => {
     function handler(e){
       if(!e.target.classList.contains('add-to-cart')) return
-      const id = +e.target.dataset.product
+      const id = e.target.dataset.product
       const products = JSON.parse(localStorage.getItem('ew_products_v1') || '[]')
       const p = products.find(x=> x.id === id)
       if(!p) return
