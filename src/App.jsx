@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState } from "react";
 import Navbar from "./components/Navbar.jsx";
 import Carousel from "./components/Carousel.jsx";
@@ -8,7 +7,7 @@ import Login from "./pages/login.jsx";
 import AdminPanel from "./pages/adminpanel.jsx";
 import Footer from "./components/Footer.jsx";
 
-const WHATSAPP_NUMBER = "5491159122734"; // Maty's number
+const WHATSAPP_NUMBER = "5491159122734";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -16,17 +15,13 @@ export default function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
-      {/* Navbar */}
       <Navbar onToggleAdmin={() => setShowAdmin((s) => !s)} />
 
-      {/* Contenido público */}
       <main className="flex-grow">
-        {/* Hero / Carousel */}
         <section id="inicio" className="w-full">
           <Carousel />
         </section>
 
-        {/* Nuestra misión */}
         <section
           id="sobre-nosotros"
           className="max-w-6xl mx-auto mt-10 px-4 sm:px-6 lg:px-8"
@@ -41,7 +36,6 @@ export default function App() {
           </p>
         </section>
 
-        {/* Productos */}
         <section
           id="productos"
           className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
@@ -49,7 +43,6 @@ export default function App() {
           <ShopProductList />
         </section>
 
-        {/* Eventos */}
         <section
           id="eventos"
           className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
@@ -63,7 +56,6 @@ export default function App() {
           </p>
         </section>
 
-        {/* Sumate a mi equipo */}
         <section
           id="sumate"
           className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
@@ -77,16 +69,13 @@ export default function App() {
           </p>
         </section>
 
-        {/* Carrito */}
         <section className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
           <Cart whatsappNumber={WHATSAPP_NUMBER} />
         </section>
       </main>
 
-      {/* Footer */}
       <Footer />
 
-      {/* Panel Admin */}
       {showAdmin && (
         <div className="fixed inset-0 z-50 p-6 bg-black/50 backdrop-blur-sm">
           <div className="max-w-3xl mx-auto bg-white rounded shadow">
@@ -109,10 +98,6 @@ export default function App() {
           </div>
         </div>
       )}
-    </div>
-  );
-}
-
     </div>
   );
 }
