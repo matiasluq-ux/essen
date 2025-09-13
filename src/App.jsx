@@ -18,14 +18,13 @@ export default function App() {
       <Navbar onToggleAdmin={() => setShowAdmin((s) => !s)} />
 
       <main className="flex-grow">
+        {/* Inicio */}
         <section id="inicio" className="w-full">
           <Carousel />
         </section>
 
-        <section
-          id="sobre-nosotros"
-          className="max-w-6xl mx-auto mt-10 px-4 sm:px-6 lg:px-8"
-        >
+        {/* Sobre nosotros */}
+        <section id="sobre-nosotros" className="container mt-10">
           <h2 className="text-2xl sm:text-3xl font-semibold text-center">
             Nuestra Misión
           </h2>
@@ -36,17 +35,13 @@ export default function App() {
           </p>
         </section>
 
-        <section
-          id="productos"
-          className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
-        >
+        {/* Productos */}
+        <section id="productos" className="container mt-12">
           <ShopProductList />
         </section>
 
-        <section
-          id="eventos"
-          className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
-        >
+        {/* Eventos */}
+        <section id="eventos" className="container mt-12">
           <h2 className="text-2xl sm:text-3xl font-semibold text-center">
             Eventos
           </h2>
@@ -56,10 +51,8 @@ export default function App() {
           </p>
         </section>
 
-        <section
-          id="sumate"
-          className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
-        >
+        {/* Sumate */}
+        <section id="sumate" className="container mt-12">
           <h2 className="text-2xl sm:text-3xl font-semibold text-center">
             Sumate a mi equipo
           </h2>
@@ -69,13 +62,15 @@ export default function App() {
           </p>
         </section>
 
-        <section className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
+        {/* Carrito */}
+        <section className="container mt-12">
           <Cart whatsappNumber={WHATSAPP_NUMBER} />
         </section>
       </main>
 
       <Footer />
 
+      {/* Admin panel */}
       {showAdmin && (
         <div className="fixed inset-0 z-50 p-6 bg-black/50 backdrop-blur-sm">
           <div className="max-w-3xl mx-auto bg-white rounded shadow">
@@ -83,22 +78,5 @@ export default function App() {
               <h3 className="font-semibold">Panel Admin</h3>
               <button
                 onClick={() => setShowAdmin(false)}
-                className="text-sm text-gray-600"
-              >
-                Cerrar
-              </button>
-            </div>
-            <div className="p-4">
-              {user ? (
-                <AdminPanel user={user} onLogout={() => setUser(null)} />
-              ) : (
-                <Login onLogin={(u) => setUser(u)} />
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+                className="text-sm text
 
