@@ -31,9 +31,6 @@ export default function App() {
               <Carousel />
             </section>
 
-            {/* Carrusel de productos destacados */}
-            <ProductCarousel />
-
             {/* Otras secciones... */}
             <section
               id="sobre-nosotros"
