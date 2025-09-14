@@ -16,6 +16,13 @@ export default function App() {
   const [currentView, setCurrentView] = useState("home");
 
   return (
+    <div className="min-h-screen bg-gray-50 text-gray-800">
+      {/* Header */}
+      <header className="w-full bg-amber-100 shadow">
+        {/* Leyenda */}
+        <div className="text-center py-2 text-sm text-gray-700 bg-amber-200">
+          Bienvenido a nuestra tienda Essen ✨ Calidad que acompaña tu cocina
+        </div>
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
       <Navbar 
         onToggleAdmin={() => setShowAdmin((s) => !s)} 
