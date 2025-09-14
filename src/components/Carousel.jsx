@@ -62,11 +62,12 @@ export default function Carousel() {
         {images.map((img, i) => (
           <div
             key={img.id}
-            className="w-full flex-shrink-0 h-64 sm:h-80 md:h-96 lg:h-[500px] relative"
+            className="w-full flex-shrink-0 h-64 sm:h-80 md:h-96 lg:h-[500px] flex items-center justify-center bg-black"
           >
-            <div
-              className="absolute inset-0 bg-center bg-no-repeat bg-cover rounded-lg"
-              style={{ backgroundImage: `url(${img.src})` }}
+            <img
+              src={img.src}
+              alt={img.title || `slide-${i}`}
+              className="max-h-full max-w-full object-contain rounded-lg"
             />
           </div>
         ))}
@@ -103,7 +104,3 @@ export default function Carousel() {
     </section>
   );
 }
-
-
-
-
