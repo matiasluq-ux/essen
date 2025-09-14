@@ -47,24 +47,25 @@ export default function Carousel() {
 
   if (loading) {
     return (
-      <div className="w-full h-64 sm:h-80 md:h-96 flex items-center justify-center bg-gray-100 rounded-lg">
-        <p className="text-gray-500">Cargando imágenes...</p>
+      <div className="w-full h-64 sm:h-80 md:h-96 flex flex-col items-center justify-center bg-gray-100">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <p className="mt-4 text-gray-500">Cargando imágenes...</p>
       </div>
     );
   }
 
   if (images.length === 0) {
     return (
-      <div className="w-full h-64 sm:h-80 md:h-96 flex items-center justify-center bg-gray-100 rounded-lg">
+      <div className="w-full h-64 sm:h-80 md:h-96 flex items-center justify-center bg-gray-100">
         <p className="text-gray-500">No hay imágenes en el carrusel</p>
       </div>
     );
   }
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto overflow-hidden rounded-xl shadow-xl bg-gray-100" style={{ height: '500px' }}>
+    <div className="w-full relative overflow-hidden bg-gray-100">
       <div
-        className="flex h-full transition-transform duration-700 ease-in-out"
+        className="flex transition-transform duration-700 ease-in-out"
         style={{
           transform: `translateX(-${idx * 100}%)`,
         }}
@@ -72,7 +73,8 @@ export default function Carousel() {
         {images.map((img, i) => (
           <div
             key={img.id}
-            className="w-full flex-shrink-0 h-full relative"
+            className="w-full flex-shrink-0 relative"
+            style={{ height: "70vh", minHeight: "400px" }}
           >
             {/* Fondo difuminado */}
             <div
