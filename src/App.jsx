@@ -13,82 +13,95 @@ const WHATSAPP_NUMBER = "5491159122734";
 export default function App() {
   const [user, setUser] = useState(null);
   const [showAdmin, setShowAdmin] = useState(false);
+  const [currentView, setCurrentView] = useState("home"); // 'home' o 'products'
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
-      <Navbar onToggleAdmin={() => setShowAdmin((s) => !s)} />
+      <Navbar 
+        onToggleAdmin={() => setShowAdmin((s) => !s)} 
+        onNavigate={setCurrentView} 
+        currentView={currentView}
+      />
 
       <main className="flex-grow">
-        {/* Inicio con carrusel de imágenes */}
-        <section id="inicio" className="w-full">
-          <Carousel />
-        </section>
+        {currentView === "home" ? (
+          // Vista de inicio (página principal)
+          <>
+            {/* Carrusel de imágenes */}
+            <section id="inicio" className="w-full">
+              <Carousel />
+            </section>
 
-        {/* Carrusel de productos destacados */}
-        <ProductCarousel />
+            {/* Carrusel de productos destacados */}
+            <ProductCarousel />
 
-        {/* Sobre nosotros */}
-        <section
-          id="sobre-nosotros"
-          className="max-w-6xl mx-auto mt-10 px-4 sm:px-6 lg:px-8"
-        >
-          <h2 className="text-2xl sm:text-3xl font-semibold text-center">
-            Nuestra Misión
-          </h2>
-          <p className="mt-4 text-gray-700 text-center max-w-3xl mx-auto">
-            💚 Emprendedora & Líder Essen  
-            Apasionada por ayudarte a transformar tu alimentación 🥦🍲  
-            📚 Estudiante de Health Coach  
-            👩‍👧 Mamá x3, y junto a Mati, mi pareja, trabajamos 100% enfocados en brindarte la mejor atención 🤝  
-            <br />
-            ✨ Más de 1500 clientes felices en todo el país  
-            ✨ Y un equipo de más de 50 personas creciendo a la par  
-            <br />
-            🚀 ¿Te gustaría emprender sin riesgos y sin inversión?  
-            💬 Escribinos, te estamos esperando para acompañarte en este camino.  
-            <br />
-            😅 Advertencia: sumarse puede causar felicidad, ingresos extra y ataques de entusiasmo repentinos.  
-            (Acompañado de mates, stickers y muchos audios, claro 😉)
-          </p>
-        </section>
+            {/* Sobre nosotros */}
+            <section
+              id="sobre-nosotros"
+              className="max-w-6xl mx-auto mt-10 px-4 sm:px-6 lg:px-8"
+            >
+              <h2 className="text-2xl sm:text-3xl font-semibold text-center">
+                Nuestra Misión
+              </h2>
+              <p className="mt-4 text-gray-700 text-center max-w-3xl mx-auto">
+                💚 Emprendedora & Líder Essen  
+                Apasionada por ayudarte a transformar tu alimentación 🥦🍲  
+                📚 Estudiante de Health Coach  
+                👩‍👧 Mamá x3, y junto a Mati, mi pareja, trabajamos 100% enfocados en brindarte la mejor atención 🤝  
+                <br />
+                ✨ Más de 1500 clientes felices en todo el país  
+                ✨ Y un equipo de más de 50 personas creciendo a la par  
+                <br />
+                🚀 ¿Te gustaría emprender sin riesgos y sin inversión?  
+                💬 Escribinos, te estamos esperando para acompañarte en este camino.  
+                <br />
+                😅 Advertencia: sumarse puede causar felicidad, ingresos extra y ataques de entusiasmo repentinos.  
+                (Acompañado de mates, stickers y muchos audios, claro 😉)
+              </p>
+            </section>
 
-        {/* Productos (catálogo completo en otra sección) */}
-        <section
-          id="productos"
-          className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
-        >
-          <ShopProductList />
-        </section>
+            {/* Eventos */}
+            <section
+              id="eventos"
+              className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
+            >
+              <h2 className="text-2xl sm:text-3xl font-semibold text-center">
+                Eventos
+              </h2>
+              <p className="mt-4 text-gray-700 text-center">
+                Muy pronto compartiremos talleres, capacitaciones y experiencias
+                únicas para vos. ¡Estate atento!
+              </p>
+            </section>
 
-        {/* Eventos */}
-        <section
-          id="eventos"
-          className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
-        >
-          <h2 className="text-2xl sm:text-3xl font-semibold text-center">
-            Eventos
-          </h2>
-          <p className="mt-4 text-gray-700 text-center">
-            Muy pronto compartiremos talleres, capacitaciones y experiencias
-            únicas para vos. ¡Estate atento!
-          </p>
-        </section>
+            {/* Sumate */}
+            <section
+              id="sumate"
+              className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
+            >
+              <h2 className="text-2xl sm:text-3xl font-semibold text-center">
+                Sumate a mi equipo
+              </h2>
+              <p className="mt-4 text-gray-700 text-center max-w-3xl mx-auto">
+                Unite a nuestro equipo Essen y descubrí una forma de emprender con
+                propósito, respaldo y acompañamiento constante.
+              </p>
+            </section>
+          </>
+        ) : (
+          // Vista de productos (catálogo completo)
+          <section
+            id="productos"
+            className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
+          >
+            <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
+              Nuestros Productos
+            </h2>
+            <ShopProductList />
+          </section>
+        )}
 
-        {/* Sumate */}
-        <section
-          id="sumate"
-          className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
-        >
-          <h2 className="text-2xl sm:text-3xl font-semibold text-center">
-            Sumate a mi equipo
-          </h2>
-          <p className="mt-4 text-gray-700 text-center max-w-3xl mx-auto">
-            Unite a nuestro equipo Essen y descubrí una forma de emprender con
-            propósito, respaldo y acompañamiento constante.
-          </p>
-        </section>
-
-        {/* Carrito */}
+        {/* Carrito (siempre visible) */}
         <section className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
           <Cart whatsappNumber={WHATSAPP_NUMBER} />
         </section>
