@@ -5,7 +5,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
         {/* Logo o nombre */}
         <h2 className="text-lg font-semibold text-amber-700">
-          Essen - Tu Tienda
+        //  Essen - Tu Tienda
         </h2>
 
         {/* Links */}
