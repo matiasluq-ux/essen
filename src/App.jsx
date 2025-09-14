@@ -13,7 +13,7 @@ const WHATSAPP_NUMBER = "5491159122734";
 export default function App() {
   const [user, setUser] = useState(null);
   const [showAdmin, setShowAdmin] = useState(false);
-  const [currentView, setCurrentView] = useState("home"); // 'home' o 'products'
+  const [currentView, setCurrentView] = useState("home");
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
@@ -25,7 +25,6 @@ export default function App() {
 
       <main className="flex-grow">
         {currentView === "home" ? (
-          // Vista de inicio (página principal)
           <>
             {/* Carrusel de imágenes */}
             <section id="inicio" className="w-full">
@@ -35,7 +34,7 @@ export default function App() {
             {/* Carrusel de productos destacados */}
             <ProductCarousel />
 
-            {/* Sobre nosotros */}
+            {/* Otras secciones... */}
             <section
               id="sobre-nosotros"
               className="max-w-6xl mx-auto mt-10 px-4 sm:px-6 lg:px-8"
@@ -60,7 +59,6 @@ export default function App() {
               </p>
             </section>
 
-            {/* Eventos */}
             <section
               id="eventos"
               className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
@@ -74,7 +72,6 @@ export default function App() {
               </p>
             </section>
 
-            {/* Sumate */}
             <section
               id="sumate"
               className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
@@ -89,7 +86,6 @@ export default function App() {
             </section>
           </>
         ) : (
-          // Vista de productos (catálogo completo)
           <section
             id="productos"
             className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
