@@ -62,13 +62,22 @@ export default function Carousel() {
         {images.map((img, i) => (
           <div
             key={img.id}
-            className="w-full flex-shrink-0 h-64 sm:h-80 md:h-96 lg:h-[500px] flex items-center justify-center bg-black"
+            className="w-full flex-shrink-0 h-64 sm:h-80 md:h-96 lg:h-[500px] relative overflow-hidden"
           >
-            <img
-              src={img.src}
-              alt={img.title || `slide-${i}`}
-              className="max-h-full max-w-full object-contain rounded-lg"
-            />
+            {/* Fondo difuminado para rellenar */}
+            <div
+              className="absolute inset-0 bg-center bg-cover blur-md scale-110"
+              style={{ backgroundImage: `url(${img.src})` }}
+            ></div>
+
+            {/* Imagen principal centrada */}
+            <div className="relative flex items-center justify-center w-full h-full">
+              <img
+                src={img.src}
+                alt={img.title || `slide-${i}`}
+                className="max-h-full max-w-full object-contain z-10"
+              />
+            </div>
           </div>
         ))}
       </div>
@@ -104,3 +113,4 @@ export default function Carousel() {
     </section>
   );
 }
+
