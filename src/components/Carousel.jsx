@@ -44,7 +44,7 @@ export default function Carousel() {
 
   if (images.length === 0) {
     return (
-      <div className="container w-full h-48 sm:h-64 md:h-80 flex items-center justify-center bg-gray-100 rounded-lg">
+      <div className="container w-full h-64 sm:h-80 md:h-96 flex items-center justify-center bg-gray-100 rounded-lg">
         <p className="text-gray-500">No hay imágenes en el carrusel</p>
       </div>
     );
@@ -62,14 +62,15 @@ export default function Carousel() {
         {images.map((img, i) => (
           <div
             key={img.id}
-            className="w-full flex-shrink-0 h-48 sm:h-64 md:h-80 lg:h-[500px] flex items-center justify-center bg-gray-100"
+            className="w-full flex-shrink-0 h-64 sm:h-80 md:h-96 lg:h-[500px] relative"
           >
-            {/* Usa object-contain si querés evitar recortes, object-cover si querés que siempre llene */}
-            <img
-              src={img.src}
-              alt={img.title || `slide-${i}`}
-              className="max-h-full w-auto object-cover rounded-lg"
-            />
+            {/* Usamos el div como fondo para mantener proporciones y cover */}
+            <div
+              className="absolute inset-0 bg-center bg-no-repeat bg-cover"
+              style={{ backgroundImage: `url(${img.src})` }}
+            >
+              {/* Opcional: overlay, título, etc */}
+            </div>
           </div>
         ))}
       </div>
@@ -103,6 +104,7 @@ export default function Carousel() {
     </section>
   );
 }
+
 
 
 
