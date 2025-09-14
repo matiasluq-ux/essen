@@ -6,12 +6,11 @@ export default function ProductCarousel() {
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("ew_products_v1") || "[]");
-    // 👉 filtramos solo los destacados (si en Firestore tenés un campo `featured: true`)
+    // 👉 filtramos los que tengan el campo `featured: true` en Firestore
     const destacados = data.filter((p) => p.featured);
     setProducts(destacados);
   }, []);
 
-  // Rotación automática cada 4s
   useEffect(() => {
     if (products.length === 0) return;
     const timer = setInterval(
@@ -21,16 +20,14 @@ export default function ProductCarousel() {
     return () => clearInterval(timer);
   }, [products.length]);
 
-  if (products.length === 0) {
-    return (
-      <div className="w-full h-64 flex items-center justify-center bg-gray-100 rounded-lg">
-        <p className="text-gray-500">No hay productos destacados</p>
-      </div>
-    );
-  }
+  if (products.length === 0) return null;
 
   return (
-    <section className="relative w-full overflow-hidden rounded-lg shadow-lg">
+    <section className="relative w-full max-w-4xl mx-auto mt-10 overflow-hidden rounded-xl shadow-lg">
+      <h3 className="text-2xl md:text-3xl font-semibold text-center text-amber-700 mb-4">
+        Productos Destacados
+      </h3>
+
       {/* Slides */}
       <div
         className="flex transition-transform duration-700 ease-in-out"
@@ -42,23 +39,24 @@ export default function ProductCarousel() {
         {products.map((p) => (
           <div
             key={p.id}
-            className="w-full flex-shrink-0 h-64 flex flex-col items-center justify-center bg-white"
+            className="w-full flex-shrink-0 h-80 bg-white flex flex-col items-center justify-center p-4"
           >
             <img
               src={
-                p.img ||
-                p.image ||
+                p.imageUrl ||
                 "https://via.placeholder.com/300x200?text=Sin+imagen"
               }
               alt={p.title}
               className="h-40 object-contain mb-2"
             />
-            <h3 className="font-semibold">{p.title}</h3>
-            <p className="text-amber-600 font-bold mb-2">
-              ${Number(p.price || 0).toLocaleString()}
+            <h4 className="font-semibold text-lg text-center line-clamp-2">
+              {p.title}
+            </h4>
+            <p className="text-amber-600 font-bold mb-3">
+              ${Number(p.price || 0).toLocaleString("es-AR")}
             </p>
             <button
-              className="add-to-cart bg-amber-500 text-white py-1 px-3 rounded-lg hover:bg-amber-600 transition"
+              className="add-to-cart bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 transition"
               data-product={p.id}
             >
               Agregar al carrito
@@ -67,10 +65,12 @@ export default function ProductCarousel() {
         ))}
       </div>
 
-      {/* Botones */}
+      {/* Flechas */}
       <div className="absolute inset-0 flex items-center justify-between px-4">
         <button
-          onClick={() => setIdx((i) => (i - 1 + products.length) % products.length)}
+          onClick={() =>
+            setIdx((i) => (i - 1 + products.length) % products.length)
+          }
           className="bg-white/70 hover:bg-white text-xl rounded-full p-2 shadow"
         >
           ‹
