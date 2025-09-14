@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CartIcon from "./CartIcon";
+import CartIcon from "./Cart";
 
 export default function Navbar({ onToggleAdmin, onNavigate, currentView }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
