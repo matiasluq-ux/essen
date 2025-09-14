@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 export default function Carousel() {
   const [images, setImages] = useState([]);
   const [idx, setIdx] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -26,8 +27,10 @@ export default function Carousel() {
           };
         });
         setImages(imgs.filter((x) => x.src));
+        setLoading(false);
       } catch (err) {
         console.error("Error cargando imágenes:", err);
+        setLoading(false);
       }
     };
     fetchImages();
@@ -42,21 +45,28 @@ export default function Carousel() {
     return () => clearInterval(timer);
   }, [images.length]);
 
+  if (loading) {
+    return (
+      <div className="w-full h-64 sm:h-80 md:h-96 flex items-center justify-center bg-gray-100 rounded-lg">
+        <p className="text-gray-500">Cargando imágenes...</p>
+      </div>
+    );
+  }
+
   if (images.length === 0) {
     return (
-      <div className="container w-full h-64 sm:h-80 md:h-96 flex items-center justify-center bg-gray-100 rounded-lg">
+      <div className="w-full h-64 sm:h-80 md:h-96 flex items-center justify-center bg-gray-100 rounded-lg">
         <p className="text-gray-500">No hay imágenes en el carrusel</p>
       </div>
     );
   }
 
   return (
-    <section className="container relative w-full h-64 sm:h-80 md:h-96 lg:h-[500px] overflow-hidden rounded-lg shadow-lg mx-auto">
+    <div className="relative w-full max-w-6xl mx-auto overflow-hidden rounded-xl shadow-xl bg-gray-100" style={{ height: '500px' }}>
       <div
         className="flex h-full transition-transform duration-700 ease-in-out"
         style={{
           transform: `translateX(-${idx * 100}%)`,
-          width: `${images.length * 100}%`,
         }}
       >
         {images.map((img, i) => (
@@ -64,53 +74,75 @@ export default function Carousel() {
             key={img.id}
             className="w-full flex-shrink-0 h-full relative"
           >
-            {/* Fondo difuminado para rellenar */}
+            {/* Fondo difuminado */}
             <div
-              className="absolute inset-0 bg-center bg-cover blur-md scale-110 opacity-70"
+              className="absolute inset-0 bg-center bg-cover blur-lg scale-110 opacity-60"
               style={{ backgroundImage: `url(${img.src})` }}
             ></div>
 
-            {/* Imagen principal centrada */}
-            <div className="relative flex items-center justify-center w-full h-full">
+            {/* Contenedor de imagen principal */}
+            <div className="relative flex items-center justify-center w-full h-full p-4">
               <img
                 src={img.src}
-                alt={img.title || `slide-${i}`}
-                className="h-full w-full object-cover z-10"
+                alt={img.title || `Imagen ${i + 1}`}
+                className="max-h-full max-w-full object-contain z-10 rounded-lg shadow-lg"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'block';
+                }}
               />
+              
+              {/* Fallback en caso de error de carga */}
+              <div className="hidden absolute inset-0 flex items-center justify-center">
+                <div className="text-center p-4 bg-white/80 rounded-lg">
+                  <p className="text-gray-700 font-medium">Imagen no disponible</p>
+                  <p className="text-sm text-gray-500 mt-1">{img.title}</p>
+                </div>
+              </div>
             </div>
+
+            {/* Título de la imagen si existe */}
+            {img.title && (
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-lg z-20 max-w-md text-center">
+                <h3 className="text-lg font-semibold">{img.title}</h3>
+              </div>
+            )}
           </div>
         ))}
       </div>
 
-      {/* Botones izquierda/derecha */}
-      <div className="absolute inset-0 flex items-center justify-between px-4">
-        <button
-          onClick={() => setIdx((i) => (i - 1 + images.length) % images.length)}
-          className="bg-white/70 hover:bg-white text-xl rounded-full p-2 shadow-md transition-all duration-200"
-        >
-          ‹
-        </button>
-        <button
-          onClick={() => setIdx((i) => (i + 1) % images.length)}
-          className="bg-white/70 hover:bg-white text-xl rounded-full p-2 shadow-md transition-all duration-200"
-        >
-          ›
-        </button>
-      </div>
-
-      {/* Puntos de navegación */}
-      <div className="absolute bottom-3 w-full flex justify-center space-x-2">
-        {images.map((_, i) => (
+      {/* Botones de navegación */}
+      {images.length > 1 && (
+        <>
           <button
-            key={i}
-            onClick={() => setIdx(i)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              i === idx ? "bg-white scale-110" : "bg-gray-400/70"
-            }`}
-          />
-        ))}
-      </div>
-    </section>
+            onClick={() => setIdx((i) => (i - 1 + images.length) % images.length)}
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 text-xl rounded-full w-10 h-10 flex items-center justify-center shadow-md transition-all duration-200 z-20"
+          >
+            ‹
+          </button>
+          <button
+            onClick={() => setIdx((i) => (i + 1) % images.length)}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 text-xl rounded-full w-10 h-10 flex items-center justify-center shadow-md transition-all duration-200 z-20"
+          >
+            ›
+          </button>
+        </>
+      )}
+
+      {/* Indicadores */}
+      {images.length > 1 && (
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIdx(i)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                i === idx ? "bg-white scale-110" : "bg-gray-400/70"
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
-
