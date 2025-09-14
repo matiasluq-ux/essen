@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./components/navbar.jsx";
 import Carousel from "./components/Carousel.jsx";
+import ProductCarousel from "./components/ProductCarousel.jsx";
 import ShopProductList from "./components/ShopProductList.jsx";
 import Cart from "./components/Cart.jsx";
 import Login from "./pages/login.jsx";
@@ -18,10 +19,15 @@ export default function App() {
       <Navbar onToggleAdmin={() => setShowAdmin((s) => !s)} />
 
       <main className="flex-grow">
+        {/* Inicio con carrusel de imágenes */}
         <section id="inicio" className="w-full">
           <Carousel />
         </section>
 
+        {/* Carrusel de productos destacados */}
+        <ProductCarousel />
+
+        {/* Sobre nosotros */}
         <section
           id="sobre-nosotros"
           className="max-w-6xl mx-auto mt-10 px-4 sm:px-6 lg:px-8"
@@ -30,22 +36,23 @@ export default function App() {
             Nuestra Misión
           </h2>
           <p className="mt-4 text-gray-700 text-center max-w-3xl mx-auto">
-           💚 Emprendedora & Líder Essen
-Apasionada por ayudarte a transformar tu alimentación 🥦🍲
-📚 Estudiante de Health Coach
-👩‍👧 Mamá x3, y junto a Mati, mi pareja, trabajamos 100% enfocados en brindarte la mejor atención 🤝
-
-✨ Más de 1500 clientes felices en todo el país
-✨ Y un equipo de más de 50 personas creciendo a la par
-
-🚀 ¿Te gustaría emprender sin riesgos y sin inversión?
-💬 Escribinos, te estamos esperando para acompañarte en este camino.
-
-😅 Advertencia: sumarse puede causar felicidad, ingresos extra y ataques de entusiasmo repentinos.
-(Acompañado de mates, stickers y muchos audios, claro 😉)
+            💚 Emprendedora & Líder Essen  
+            Apasionada por ayudarte a transformar tu alimentación 🥦🍲  
+            📚 Estudiante de Health Coach  
+            👩‍👧 Mamá x3, y junto a Mati, mi pareja, trabajamos 100% enfocados en brindarte la mejor atención 🤝  
+            <br />
+            ✨ Más de 1500 clientes felices en todo el país  
+            ✨ Y un equipo de más de 50 personas creciendo a la par  
+            <br />
+            🚀 ¿Te gustaría emprender sin riesgos y sin inversión?  
+            💬 Escribinos, te estamos esperando para acompañarte en este camino.  
+            <br />
+            😅 Advertencia: sumarse puede causar felicidad, ingresos extra y ataques de entusiasmo repentinos.  
+            (Acompañado de mates, stickers y muchos audios, claro 😉)
           </p>
         </section>
 
+        {/* Productos (catálogo completo en otra sección) */}
         <section
           id="productos"
           className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
@@ -53,6 +60,7 @@ Apasionada por ayudarte a transformar tu alimentación 🥦🍲
           <ShopProductList />
         </section>
 
+        {/* Eventos */}
         <section
           id="eventos"
           className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
@@ -66,6 +74,7 @@ Apasionada por ayudarte a transformar tu alimentación 🥦🍲
           </p>
         </section>
 
+        {/* Sumate */}
         <section
           id="sumate"
           className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
@@ -79,6 +88,7 @@ Apasionada por ayudarte a transformar tu alimentación 🥦🍲
           </p>
         </section>
 
+        {/* Carrito */}
         <section className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
           <Cart whatsappNumber={WHATSAPP_NUMBER} />
         </section>
@@ -86,6 +96,7 @@ Apasionada por ayudarte a transformar tu alimentación 🥦🍲
 
       <Footer />
 
+      {/* Panel Admin */}
       {showAdmin && (
         <div className="fixed inset-0 z-50 p-6 bg-black/50 backdrop-blur-sm">
           <div className="max-w-3xl mx-auto bg-white rounded shadow">
