@@ -61,15 +61,16 @@ export default function Carousel() {
       >
         {images.map((img, i) => (
           <div
-  key={img.id}
-  className="w-full flex-shrink-0 flex items-center justify-center bg-gray-100"
->
-  <img
-    src={img.src}
-    alt={img.title || `slide-${i}`}
-    className="w-full h-auto object-contain rounded-lg"
-  />
-</div>
+            key={img.id}
+            className="w-full flex-shrink-0 h-48 sm:h-64 md:h-80 lg:h-[500px] flex items-center justify-center bg-gray-100"
+          >
+            {/* Usa object-contain si querés evitar recortes, object-cover si querés que siempre llene */}
+            <img
+              src={img.src}
+              alt={img.title || `slide-${i}`}
+              className="max-h-full w-auto object-contain rounded-lg"
+            />
+          </div>
         ))}
       </div>
 
@@ -102,6 +103,9 @@ export default function Carousel() {
     </section>
   );
 }
+
+
+
 
 
 
