@@ -59,6 +59,9 @@ export default function App() {
               </p>
             </section>
 
+            {/* Carrusel de productos destacados */}
+        <ProductCarousel />
+
             <section
               id="eventos"
               className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
