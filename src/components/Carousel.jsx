@@ -64,17 +64,15 @@ export default function Carousel() {
             key={img.id}
             className="w-full flex-shrink-0 h-64 sm:h-80 md:h-96 lg:h-[500px] relative"
           >
-            {/* Usamos el div como fondo para mantener proporciones y cover */}
             <div
-              className="absolute inset-0 bg-center bg-no-repeat bg-cover"
+              className="absolute inset-0 bg-center bg-no-repeat bg-cover rounded-lg"
               style={{ backgroundImage: `url(${img.src})` }}
-            >
-              {/* Opcional: overlay, título, etc */}
-            </div>
+            />
           </div>
         ))}
       </div>
 
+      {/* Botones izquierda/derecha */}
       <div className="absolute inset-0 flex items-center justify-between px-4">
         <button
           onClick={() => setIdx((i) => (i - 1 + images.length) % images.length)}
@@ -90,6 +88,7 @@ export default function Carousel() {
         </button>
       </div>
 
+      {/* Puntos de navegación */}
       <div className="absolute bottom-3 w-full flex justify-center space-x-2">
         {images.map((_, i) => (
           <button
@@ -104,9 +103,6 @@ export default function Carousel() {
     </section>
   );
 }
-
-
-
 
 
 
