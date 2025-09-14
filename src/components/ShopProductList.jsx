@@ -50,7 +50,7 @@ export default function ShopProductList() {
             <img
               src={p.imageUrl || "https://via.placeholder.com/400x300?text=Sin+imagen"}
               alt={p.title || p.name}
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-contain"
             />
             <div className="p-4 flex flex-col">
               <h4 className="font-semibold text-lg mb-1">{p.title || p.name}</h4>
