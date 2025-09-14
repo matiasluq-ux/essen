@@ -68,7 +68,7 @@ export default function Carousel() {
             <img
               src={img.src}
               alt={img.title || `slide-${i}`}
-              className="w-full h-full object-cover rounded-lg"
+              className="max-h-full w-auto object-contain rounded-lg"
             />
           </div>
         ))}
