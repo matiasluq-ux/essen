@@ -51,9 +51,9 @@ export default function Carousel() {
   }
 
   return (
-    <section className="container relative w-full overflow-hidden rounded-lg shadow-lg">
+    <section className="container relative w-full h-64 sm:h-80 md:h-96 lg:h-[500px] overflow-hidden rounded-lg shadow-lg mx-auto">
       <div
-        className="flex transition-transform duration-700 ease-in-out"
+        className="flex h-full transition-transform duration-700 ease-in-out"
         style={{
           transform: `translateX(-${idx * 100}%)`,
           width: `${images.length * 100}%`,
@@ -62,11 +62,11 @@ export default function Carousel() {
         {images.map((img, i) => (
           <div
             key={img.id}
-            className="w-full flex-shrink-0 h-64 sm:h-80 md:h-96 lg:h-[500px] relative overflow-hidden"
+            className="w-full flex-shrink-0 h-full relative"
           >
             {/* Fondo difuminado para rellenar */}
             <div
-              className="absolute inset-0 bg-center bg-cover blur-md scale-110"
+              className="absolute inset-0 bg-center bg-cover blur-md scale-110 opacity-70"
               style={{ backgroundImage: `url(${img.src})` }}
             ></div>
 
@@ -75,7 +75,7 @@ export default function Carousel() {
               <img
                 src={img.src}
                 alt={img.title || `slide-${i}`}
-                className="max-h-full max-w-full object-contain z-10"
+                className="h-full w-full object-cover z-10"
               />
             </div>
           </div>
@@ -86,13 +86,13 @@ export default function Carousel() {
       <div className="absolute inset-0 flex items-center justify-between px-4">
         <button
           onClick={() => setIdx((i) => (i - 1 + images.length) % images.length)}
-          className="bg-white/70 hover:bg-white text-xl rounded-full p-2 shadow"
+          className="bg-white/70 hover:bg-white text-xl rounded-full p-2 shadow-md transition-all duration-200"
         >
           ‹
         </button>
         <button
           onClick={() => setIdx((i) => (i + 1) % images.length)}
-          className="bg-white/70 hover:bg-white text-xl rounded-full p-2 shadow"
+          className="bg-white/70 hover:bg-white text-xl rounded-full p-2 shadow-md transition-all duration-200"
         >
           ›
         </button>
@@ -104,8 +104,8 @@ export default function Carousel() {
           <button
             key={i}
             onClick={() => setIdx(i)}
-            className={`w-3 h-3 rounded-full ${
-              i === idx ? "bg-white" : "bg-gray-400/70"
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              i === idx ? "bg-white scale-110" : "bg-gray-400/70"
             }`}
           />
         ))}
