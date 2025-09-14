@@ -212,24 +212,48 @@ h3 {
   font-size: clamp(1.2rem, 2.5vw, 1.5rem);
 }
 
-/* Estilos para el carrusel de productos destacados */
-.product-carousel {
+/* Estilos para el carrusel de productos destacados - MÚLTIPLES PRODUCTOS */
+.product-carousel-container {
   position: relative;
   overflow: hidden;
   border-radius: 12px;
   background-color: #f8f9fa;
   padding: 1.5rem;
+  margin: 2rem auto;
 }
 
 .product-carousel-track {
   display: flex;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
 }
 
 .product-carousel-slide {
   flex: 0 0 auto;
   width: 100%;
-  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 productos por defecto */
+  gap: 1rem;
+  padding: 0 0.5rem;
+}
+
+/* Ajustes responsivos para el número de productos visibles */
+@media (max-width: 1280px) {
+  .product-carousel-slide {
+    grid-template-columns: repeat(3, 1fr); /* 3 productos en pantallas grandes */
+  }
+}
+
+@media (max-width: 1024px) {
+  .product-carousel-slide {
+    grid-template-columns: repeat(2, 1fr); /* 2 productos en tablets */
+  }
+}
+
+@media (max-width: 640px) {
+  .product-carousel-slide {
+    grid-template-columns: repeat(1, 1fr); /* 1 producto en móviles */
+  }
 }
 
 .product-carousel-item {
@@ -237,16 +261,19 @@ h3 {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s ease;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-carousel-item:hover {
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
 }
 
-.product-carousel-image {
-  height: 250px;
+.product-carousel-image-container {
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -254,8 +281,17 @@ h3 {
   padding: 1rem;
 }
 
+.product-carousel-image {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
 .product-carousel-content {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .product-carousel-title {
@@ -287,6 +323,7 @@ h3 {
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100%;
+  margin-top: auto;
 }
 
 .product-carousel-button:hover {
@@ -394,16 +431,16 @@ h3 {
 
 /* Mejoras de responsividad para móviles */
 @media (max-width: 640px) {
-  .product-carousel {
+  .product-carousel-container {
     padding: 1rem;
   }
   
   .product-carousel-slide {
-    padding: 0 0.5rem;
+    padding: 0 0.2rem;
   }
   
-  .product-carousel-image {
-    height: 200px;
+  .product-carousel-image-container {
+    height: 180px;
   }
   
   .product-carousel-content {
@@ -412,7 +449,7 @@ h3 {
   
   .product-carousel-title {
     font-size: 1rem;
-    height: 2.5rem;
+    height: 2.8rem;
   }
   
   .product-carousel-price {
@@ -427,8 +464,8 @@ h3 {
 
 /* Ajustes para tablets */
 @media (min-width: 641px) and (max-width: 1024px) {
-  .product-carousel-image {
-    height: 220px;
+  .product-carousel-image-container {
+    height: 190px;
   }
 }
 
@@ -475,8 +512,26 @@ h3 {
     color: #e2e8f0;
   }
   
-  .product-carousel-image {
+  .product-carousel-image-container {
     background: #4a5568;
   }
+}
+
+/* Estilos para el contenedor principal de la página */
+.main-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Asegurar que el carrusel ocupe todo el ancho */
+.full-width-carousel {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
