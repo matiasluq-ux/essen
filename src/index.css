@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Agregar al CSS */
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.9; }
+}
+
+.promo-beige-animated {
+  background-color: #f5f5dc;
+  border-bottom: 1px solid #e5e5d5;
+  animation: subtle-pulse 3s ease-in-out infinite;
+}
+
 /* Agregar esto a tu archivo CSS existente */
 .promo-beige {
   background-color: #f5f5dc; /* Color beige estándar */
