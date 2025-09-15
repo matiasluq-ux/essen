@@ -31,16 +31,7 @@ export default function App() {
           </p>
         </div>
       </div>
-
-      <main className="flex-grow">
-        {/* Resto de tu código... */}
-        {currentView === "home" ? (
-          <>
-            {/* Carrusel de imágenes */}
-            <section id="inicio" className="w-full">
-              <Carousel />
-            </section>
-            
+           
       <main className="flex-grow">
         {currentView === "home" ? (
           <>
