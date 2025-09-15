@@ -22,7 +22,25 @@ export default function App() {
         onNavigate={setCurrentView} 
         currentView={currentView}
       />
+      
+{/* Franja promocional beige */}
+      <div className="w-full bg-amber-50 py-3 border-b border-amber-200">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-amber-800 font-medium text-sm md:text-base">
+            👉 ¡Aprovechá las mejores promos de Essen!
+          </p>
+        </div>
+      </div>
 
+      <main className="flex-grow">
+        {/* Resto de tu código... */}
+        {currentView === "home" ? (
+          <>
+            {/* Carrusel de imágenes */}
+            <section id="inicio" className="w-full">
+              <Carousel />
+            </section>
+            
       <main className="flex-grow">
         {currentView === "home" ? (
           <>
