@@ -212,55 +212,61 @@ h3 {
   font-size: clamp(1.2rem, 2.5vw, 1.5rem);
 }
 
-/* Estilos para el carrusel de productos destacados - MÚLTIPLES PRODUCTOS */
+/* ESTILOS ACTUALIZADOS PARA CARRUSEL DE MÚLTIPLES PRODUCTOS */
 .product-carousel-container {
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
-  background-color: #f8f9fa;
-  padding: 1.5rem;
+  padding: 2rem 0;
   margin: 2rem auto;
+  width: 100%;
 }
 
 .product-carousel-track {
   display: flex;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.5s ease-in-out;
   width: 100%;
 }
 
 .product-carousel-slide {
   flex: 0 0 auto;
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 productos por defecto */
-  gap: 1rem;
-  padding: 0 0.5rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 /* Ajustes responsivos para el número de productos visibles */
-@media (max-width: 1280px) {
+@media (min-width: 1400px) {
   .product-carousel-slide {
-    grid-template-columns: repeat(3, 1fr); /* 3 productos en pantallas grandes */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1399px) and (min-width: 1024px) {
   .product-carousel-slide {
-    grid-template-columns: repeat(2, 1fr); /* 2 productos en tablets */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1023px) and (min-width: 768px) {
   .product-carousel-slide {
-    grid-template-columns: repeat(1, 1fr); /* 1 producto en móviles */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .product-carousel-slide {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1rem;
   }
 }
 
 .product-carousel-item {
   background: white;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   height: 100%;
   display: flex;
@@ -268,23 +274,28 @@ h3 {
 }
 
 .product-carousel-item:hover {
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transform: translateY(-5px);
 }
 
 .product-carousel-image-container {
-  height: 200px;
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f9f9f9;
-  padding: 1rem;
+  background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+  padding: 1.5rem;
 }
 
 .product-carousel-image {
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.product-carousel-item:hover .product-carousel-image {
+  transform: scale(1.05);
 }
 
 .product-carousel-content {
@@ -297,9 +308,9 @@ h3 {
 .product-carousel-title {
   font-weight: 600;
   font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   line-height: 1.4;
-  height: 3rem;
+  min-height: 3.2rem;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -309,74 +320,78 @@ h3 {
 .product-carousel-price {
   color: #d97706;
   font-weight: 700;
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
+  font-size: 1.35rem;
+  margin-bottom: 1.25rem;
 }
 
 .product-carousel-button {
   background: #d97706;
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   width: 100%;
   margin-top: auto;
+  font-size: 1rem;
 }
 
 .product-carousel-button:hover {
   background: #b45309;
+  transform: translateY(-2px);
 }
 
 .product-carousel-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border: none;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
-  z-index: 10;
+  z-index: 20;
+  font-size: 1.5rem;
 }
 
 .product-carousel-nav:hover {
   background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .product-carousel-nav.prev {
-  left: 10px;
+  left: 20px;
 }
 
 .product-carousel-nav.next {
-  right: 10px;
+  right: 20px;
 }
 
 .product-carousel-indicators {
   position: absolute;
-  bottom: 15px;
+  bottom: 10px;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
-  gap: 8px;
-  z-index: 10;
+  gap: 10px;
+  z-index: 20;
 }
 
 .product-carousel-indicator {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.6);
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -384,7 +399,7 @@ h3 {
 
 .product-carousel-indicator.active {
   background: #d97706;
-  transform: scale(1.2);
+  transform: scale(1.3);
 }
 
 /* Estilos para el recorte de texto */
@@ -432,40 +447,55 @@ h3 {
 /* Mejoras de responsividad para móviles */
 @media (max-width: 640px) {
   .product-carousel-container {
-    padding: 1rem;
+    padding: 1.5rem 0;
   }
   
   .product-carousel-slide {
-    padding: 0 0.2rem;
+    padding: 0 0.5rem;
   }
   
   .product-carousel-image-container {
     height: 180px;
+    padding: 1rem;
   }
   
   .product-carousel-content {
-    padding: 1rem;
+    padding: 1.25rem;
   }
   
   .product-carousel-title {
     font-size: 1rem;
-    height: 2.8rem;
+    min-height: 2.8rem;
   }
   
   .product-carousel-price {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+  }
+  
+  .product-carousel-button {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
   }
   
   .product-carousel-nav {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+  
+  .product-carousel-nav.prev {
+    left: 10px;
+  }
+  
+  .product-carousel-nav.next {
+    right: 10px;
   }
 }
 
 /* Ajustes para tablets */
-@media (min-width: 641px) and (max-width: 1024px) {
+@media (min-width: 641px) and (max-width: 1023px) {
   .product-carousel-image-container {
-    height: 190px;
+    height: 200px;
   }
 }
 
@@ -534,4 +564,3 @@ h3 {
   margin-left: -50vw;
   margin-right: -50vw;
 }
-
