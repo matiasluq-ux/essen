@@ -14,23 +14,23 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [showAdmin, setShowAdmin] = useState(false);
   const [currentView, setCurrentView] = useState("home");
-
-  return (     
-    <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
+     
+   return (     
+    <div className="flex flex-col min-h-screen bg-gray-50 text-gray-80">
+      {/* Franja promocional beige - Ahora en la parte superior */}
+      <div className="w-full promo-beige">
+        <div className="container mx-auto px-4">
+          <p className="promo-beige-text text-sm md:text-base text-center py-2">
+            👉 ¡Aprovechá las mejores promos de Essen!
+          </p>
+        </div>
+      </div>
+      
       <Navbar 
         onToggleAdmin={() => setShowAdmin((s) => !s)} 
         onNavigate={setCurrentView} 
         currentView={currentView}
       />
-      
-{/* Franja promocional beige */}
-<div className="w-full promo-beige">
-  <div className="container mx-auto px-4">
-    <p className="promo-beige-text text-sm md:text-base">
-      👉 ¡Aprovechá las mejores promos de Essen!
-    </p>
-  </div>
-</div>
            
       <main className="flex-grow">
         {currentView === "home" ? (
