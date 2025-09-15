@@ -81,9 +81,8 @@ export default function Navbar({ onToggleAdmin, onNavigate, currentView }) {
             )}
           </div>
 
-          {/* Botones de carrito y administración */}
+          {/* Botones de administración (sin carrito) */}
           <div className="flex items-center space-x-4">
-            <CartIcon />
             <button
               onClick={onToggleAdmin}
               className="bg-amber-500 text-white px-4 py-2 rounded-md hover:bg-amber-600 transition-colors"
@@ -179,4 +178,3 @@ export default function Navbar({ onToggleAdmin, onNavigate, currentView }) {
     </nav>
   );
 }
-
