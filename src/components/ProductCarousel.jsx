@@ -4,8 +4,29 @@ import { db } from "../firebase";
 
 export default function ProductCarousel() {
   const [products, setProducts] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [productsPerSlide, setProductsPerSlide] = useState(4); // Por defecto 4 productos
+
+  useEffect(() => {
+    // Determinar cuántos productos mostrar por slide según el tamaño de pantalla
+    const updateProductsPerSlide = () => {
+      if (window.innerWidth >= 1400) {
+        setProductsPerSlide(4);
+      } else if (window.innerWidth >= 1024) {
+        setProductsPerSlide(3);
+      } else if (window.innerWidth >= 768) {
+        setProductsPerSlide(2);
+      } else {
+        setProductsPerSlide(1);
+      }
+    };
+
+    updateProductsPerSlide();
+    window.addEventListener('resize', updateProductsPerSlide);
+
+    return () => window.removeEventListener('resize', updateProductsPerSlide);
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,15 +39,15 @@ export default function ProductCarousel() {
             title: data.title || data.name || "",
             price: Number(data.price || 0),
             imageUrl: data.imageUrl || data.image || "",
-            featured: data.featured || false // Campo para productos destacados
+            featured: data.featured || false
           };
         });
         
-        // Filtrar productos destacados o tomar los primeros 6 si no hay destacados
+        // Filtrar productos destacados o tomar los primeros 8 si no hay destacados
         const featuredProducts = productsData.filter(p => p.featured);
         const productsToShow = featuredProducts.length > 0 
           ? featuredProducts 
-          : productsData.slice(0, 6);
+          : productsData.slice(0, 8);
           
         setProducts(productsToShow);
         setLoading(false);
@@ -40,26 +61,26 @@ export default function ProductCarousel() {
   }, []);
 
   useEffect(() => {
-    if (products.length <= 1) return;
+    if (products.length <= productsPerSlide) return;
     
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
-        prevIndex === products.length - 1 ? 0 : prevIndex + 1
+      setCurrentSlide((prevSlide) => 
+        prevSlide === Math.ceil(products.length / productsPerSlide) - 1 ? 0 : prevSlide + 1
       );
-    }, 4000);
+    }, 5000);
     
     return () => clearInterval(timer);
-  }, [products.length]);
+  }, [products.length, productsPerSlide]);
 
-  const nextProduct = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === products.length - 1 ? 0 : prevIndex + 1
+  const nextSlide = () => {
+    setCurrentSlide((prevSlide) => 
+      prevSlide === Math.ceil(products.length / productsPerSlide) - 1 ? 0 : prevSlide + 1
     );
   };
 
-  const prevProduct = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? products.length - 1 : prevIndex - 1
+  const prevSlide = () => {
+    setCurrentSlide((prevSlide) => 
+      prevSlide === 0 ? Math.ceil(products.length / productsPerSlide) - 1 : prevSlide - 1
     );
   };
 
@@ -77,8 +98,16 @@ export default function ProductCarousel() {
   }
 
   if (products.length === 0) {
-    return null; // No mostrar nada si no hay productos
+    return null;
   }
+
+  // Calcular el número total de slides
+  const totalSlides = Math.ceil(products.length / productsPerSlide);
+  
+  // Obtener los productos para el slide actual
+  const startIndex = currentSlide * productsPerSlide;
+  const endIndex = startIndex + productsPerSlide;
+  const currentProducts = products.slice(startIndex, endIndex);
 
   return (
     <section className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
@@ -86,63 +115,74 @@ export default function ProductCarousel() {
         Productos Destacados
       </h2>
       
-      <div className="relative overflow-hidden rounded-xl bg-gray-50 p-6">
-        <div className="flex transition-transform duration-500 ease-in-out"
-             style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-          {products.map((product, index) => (
-            <div key={product.id} className="w-full flex-shrink-0 px-4">
-              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <div className="h-56 overflow-hidden flex items-center justify-center">
-                  <img
-                    src={product.imageUrl || "https://via.placeholder.com/300x300?text=Imagen+no+disponible"}
-                    alt={product.title}
-                    className="max-h-full max-w-full object-contain p-4"
-                    onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/300x300?text=Imagen+no+disponible";
-                    }}
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-semibold text-lg mb-2 line-clamp-2 h-14">
-                    {product.title}
-                  </h3>
-                  <p className="text-amber-600 font-bold text-xl mb-3">
-                    ${product.price.toLocaleString('es-AR')}
-                  </p>
-                  <button
-                    className="add-to-cart bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 transition-colors duration-200 w-full"
-                    data-product={product.id}
-                  >
-                    Agregar al carrito
-                  </button>
-                </div>
+      <div className="product-carousel-container">
+        <div 
+          className="product-carousel-track"
+          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+        >
+          {Array.from({ length: totalSlides }).map((_, slideIndex) => {
+            const slideProducts = products.slice(
+              slideIndex * productsPerSlide,
+              slideIndex * productsPerSlide + productsPerSlide
+            );
+            
+            return (
+              <div key={slideIndex} className="product-carousel-slide">
+                {slideProducts.map((product) => (
+                  <div key={product.id} className="product-carousel-item">
+                    <div className="product-carousel-image-container">
+                      <img
+                        src={product.imageUrl || "https://via.placeholder.com/300x300?text=Imagen+no+disponible"}
+                        alt={product.title}
+                        className="product-carousel-image"
+                        onError={(e) => {
+                          e.target.src = "https://via.placeholder.com/300x300?text=Imagen+no+disponible";
+                        }}
+                      />
+                    </div>
+                    <div className="product-carousel-content">
+                      <h3 className="product-carousel-title">
+                        {product.title}
+                      </h3>
+                      <p className="product-carousel-price">
+                        ${product.price.toLocaleString('es-AR')}
+                      </p>
+                      <button
+                        className="product-carousel-button add-to-cart"
+                        data-product={product.id}
+                      >
+                        Agregar al carrito
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         
-        {products.length > 1 && (
+        {products.length > productsPerSlide && (
           <>
             <button
-              onClick={prevProduct}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 text-xl rounded-full w-10 h-10 flex items-center justify-center shadow-md transition-all duration-200 z-10"
+              onClick={prevSlide}
+              className="product-carousel-nav prev"
             >
               ‹
             </button>
             <button
-              onClick={nextProduct}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 text-xl rounded-full w-10 h-10 flex items-center justify-center shadow-md transition-all duration-200 z-10"
+              onClick={nextSlide}
+              className="product-carousel-nav next"
             >
               ›
             </button>
             
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-              {products.map((_, index) => (
+            <div className="product-carousel-indicators">
+              {Array.from({ length: totalSlides }).map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentIndex ? "bg-amber-500 scale-110" : "bg-gray-400"
+                  onClick={() => setCurrentSlide(index)}
+                  className={`product-carousel-indicator ${
+                    index === currentSlide ? "active" : ""
                   }`}
                 />
               ))}
