@@ -24,13 +24,13 @@ export default function App() {
       />
       
 {/* Franja promocional beige */}
-      <div className="w-full bg-amber-50 py-3 border-b border-amber-200">
-        <div className="container mx-auto px-4">
-          <p className="text-center text-amber-800 font-medium text-sm md:text-base">
-            👉 ¡Aprovechá las mejores promos de Essen!
-          </p>
-        </div>
-      </div>
+<div className="w-full promo-beige">
+  <div className="container mx-auto px-4">
+    <p className="promo-beige-text text-sm md:text-base">
+      👉 ¡Aprovechá las mejores promos de Essen!
+    </p>
+  </div>
+</div>
            
       <main className="flex-grow">
         {currentView === "home" ? (
