@@ -81,16 +81,7 @@ export default function Navbar({ onToggleAdmin, onNavigate, currentView }) {
             )}
           </div>
 
-          {/* Botones de administración (sin carrito) */}
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={onToggleAdmin}
-              className="bg-amber-500 text-white px-4 py-2 rounded-md hover:bg-amber-600 transition-colors"
-            >
-              Admin
-            </button>
-          </div>
-
+         
           {/* Botón de menú hamburguesa para móvil */}
           <div className="md:hidden">
             <button
