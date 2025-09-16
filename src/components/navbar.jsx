@@ -17,7 +17,9 @@ export default function Navbar({ onToggleAdmin, onNavigate, currentView }) {
             className="cursor-pointer flex items-center"
             onClick={() => handleNavigation("home")}
           >
-            
+            <span className="text-xl font-bold text-amber-600">Essen</span>
+          </div>
+
           {/* Menú de navegación para desktop */}
           <div className="hidden md:flex space-x-8">
             {currentView === "home" ? (
