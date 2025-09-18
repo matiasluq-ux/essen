@@ -288,36 +288,43 @@ h3 {
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  /* Se eliminó box-shadow del item del carrusel */
   transition: all 0.3s ease;
   height: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid #e5e7eb; /* Se añadió un borde sutil en lugar de sombra */
+  border: 1px solid #e5e7eb;
 }
 
 .product-carousel-item:hover {
-  /* Se eliminó box-shadow del hover */
   transform: translateY(-5px);
-  border-color: #d97706; /* Color de acento al hacer hover */
+  border-color: #d97706;
 }
 
+/* CONTENEDOR DE IMAGEN - ELIMINAR BORDES Y SOMBRAS */
 .product-carousel-image-container {
   height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent; /* Se quitó el gradiente de fondo */
-  padding: 1.5rem;
+  background: transparent !important; /* Fondo transparente */
+  padding: 0; /* Eliminar padding que pueda crear espacio alrededor */
+  margin: 0; /* Eliminar márgenes */
+  border: none !important; /* Eliminar bordes */
+  box-shadow: none !important; /* Eliminar sombras */
+  outline: none !important; /* Eliminar contornos */
 }
 
+/* IMAGEN EN SÍ - ELIMINAR BORDES Y SOMBRAS */
 .product-carousel-image {
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
-  border: none; /* Se asegura que no haya bordes en la imagen */
-  box-shadow: none; /* Se asegura que no haya sombras en la imagen */
+  border: none !important; /* Eliminar bordes */
+  box-shadow: none !important; /* Eliminar sombras */
+  outline: none !important; /* Eliminar contornos */
+  padding: 0 !important; /* Eliminar padding interno */
+  margin: 0 !important; /* Eliminar márgenes externos */
 }
 
 .product-carousel-item:hover .product-carousel-image {
@@ -385,13 +392,13 @@ h3 {
   transition: all 0.3s ease;
   z-index: 20;
   font-size: 1.5rem;
-  border: 1px solid #e5e7eb; /* Se añadió borde en lugar de sombra */
+  border: 1px solid #e5e7eb;
 }
 
 .product-carousel-nav:hover {
   background: white;
   transform: translateY(-50%) scale(1.1);
-  border-color: #d97706; /* Color de acento al hacer hover */
+  border-color: #d97706;
 }
 
 .product-carousel-nav.prev {
@@ -482,7 +489,6 @@ h3 {
   
   .product-carousel-image-container {
     height: 180px;
-    padding: 1rem;
   }
   
   .product-carousel-content {
@@ -569,7 +575,7 @@ h3 {
   }
   
   .product-carousel-image-container {
-    background: #4a5568;
+    background: transparent !important;
   }
 }
 
@@ -589,4 +595,22 @@ h3 {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+}
+
+/* ESTILOS ADICIONALES PARA ELIMINAR BORDES DE IMÁGENES */
+/* Esto asegurará que no haya bordes en ninguna imagen del sitio */
+img {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Estilos específicos para cualquier imagen dentro de un carrusel */
+.carousel img,
+.slider img,
+[class*="carousel"] img,
+[class*="slider"] img {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
