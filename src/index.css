@@ -614,3 +614,43 @@ img {
   box-shadow: none !important;
   outline: none !important;
 }
+/* Eliminar bordes de imágenes en el carrusel principal */
+.splide__slide img {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Contenedor de imágenes del carrusel */
+.splide__slide {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+/* Eliminar cualquier borde o sombra de los elementos internos */
+.product-carousel-image-container,
+.product-carousel-image-container * {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+/* Imágenes específicamente */
+.product-carousel-image {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Eliminar bordes de los botones de navegación */
+.splide__arrow {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Asegurar que no haya fondos con sombras */
+.splide__pagination__page {
+    box-shadow: none !important;
+}
+
