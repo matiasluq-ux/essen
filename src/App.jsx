@@ -89,8 +89,14 @@ export default function App() {
                 Sumate a mi equipo
               </h2>
               <p className="mt-4 text-gray-700 text-center max-w-3xl mx-auto">
-                Unite a nuestro equipo Essen y descubrí una forma de emprender con
-                propósito, respaldo y acompañamiento constante.
+                Quiero sumarme
+Nombre y Apellido *
+Teléfono *
+Tenes alguna meta que te motive a este nuevo camino de emprender??
+contanos un poco de vos... lo que quieras, de donde sos , que te gusta hacer, si estas trabajando actualmente...
+cuanto tiempo le podrias dedicar semanalmente? menos de 5 horas , mas de 5 horas..
+Por que te interesa emprender en essen? (ej ingreso extra, cambia de trabajo, desarrollo personal, quiero liderar mi equipo..etc)
+
               </p>
             </section>
           </>
