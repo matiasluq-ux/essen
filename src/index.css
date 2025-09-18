@@ -79,6 +79,7 @@ html {
   align-items: center;
   padding: 15px 30px;
   background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -140,6 +141,7 @@ html {
   left: 0;
   right: 0;
   padding: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   border-radius: 0 0 10px 10px;
   z-index: 999;
 }
@@ -192,6 +194,7 @@ html {
     right: 0;
     background: #fff;
     padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     border-radius: 0 0 10px 10px;
     z-index: 999;
   }
@@ -288,43 +291,32 @@ h3 {
   background: white;
   border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   height: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid #e5e7eb;
 }
 
 .product-carousel-item:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transform: translateY(-5px);
-  border-color: #d97706;
 }
 
-/* CONTENEDOR DE IMAGEN - ELIMINAR BORDES Y SOMBRAS */
 .product-carousel-image-container {
   height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent !important; /* Fondo transparente */
-  padding: 0; /* Eliminar padding que pueda crear espacio alrededor */
-  margin: 0; /* Eliminar márgenes */
-  border: none !important; /* Eliminar bordes */
-  box-shadow: none !important; /* Eliminar sombras */
-  outline: none !important; /* Eliminar contornos */
+  background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+  padding: 1.5rem;
 }
 
-/* IMAGEN EN SÍ - ELIMINAR BORDES Y SOMBRAS */
 .product-carousel-image {
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
-  border: none !important; /* Eliminar bordes */
-  box-shadow: none !important; /* Eliminar sombras */
-  outline: none !important; /* Eliminar contornos */
-  padding: 0 !important; /* Eliminar padding interno */
-  margin: 0 !important; /* Eliminar márgenes externos */
 }
 
 .product-carousel-item:hover .product-carousel-image {
@@ -389,16 +381,16 @@ h3 {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   z-index: 20;
   font-size: 1.5rem;
-  border: 1px solid #e5e7eb;
 }
 
 .product-carousel-nav:hover {
   background: white;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   transform: translateY(-50%) scale(1.1);
-  border-color: #d97706;
 }
 
 .product-carousel-nav.prev {
@@ -489,6 +481,7 @@ h3 {
   
   .product-carousel-image-container {
     height: 180px;
+    padding: 1rem;
   }
   
   .product-carousel-content {
@@ -575,7 +568,7 @@ h3 {
   }
   
   .product-carousel-image-container {
-    background: transparent !important;
+    background: #4a5568;
   }
 }
 
@@ -595,62 +588,5 @@ h3 {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-}
-
-/* ESTILOS ADICIONALES PARA ELIMINAR BORDES DE IMÁGENES */
-/* Esto asegurará que no haya bordes en ninguna imagen del sitio */
-img {
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* Estilos específicos para cualquier imagen dentro de un carrusel */
-.carousel img,
-.slider img,
-[class*="carousel"] img,
-[class*="slider"] img {
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-/* Eliminar bordes de imágenes en el carrusel principal */
-.splide__slide img {
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-/* Contenedor de imágenes del carrusel */
-.splide__slide {
-    border: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-}
-
-/* Eliminar cualquier borde o sombra de los elementos internos */
-.product-carousel-image-container,
-.product-carousel-image-container * {
-    border: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-}
-
-/* Imágenes específicamente */
-.product-carousel-image {
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-/* Eliminar bordes de los botones de navegación */
-.splide__arrow {
-    border: none !important;
-    box-shadow: none !important;
-}
-
-/* Asegurar que no haya fondos con sombras */
-.splide__pagination__page {
-    box-shadow: none !important;
 }
 
