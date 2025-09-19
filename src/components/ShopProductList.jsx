@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 
-export default function ShopProductList() {
+export default function ShopProductList({ addToCart }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -33,6 +33,15 @@ export default function ShopProductList() {
 
     return () => unsub();
   }, []);
+
+  // Función para manejar el agregado al carrito
+  const handleAddToCart = (product) => {
+    if (addToCart) {
+      addToCart(product);
+      // Opcional: mostrar una notificación o feedback visual
+      console.log("Producto agregado al carrito:", product.title);
+    }
+  };
 
   if (loading) {
     return (
@@ -80,8 +89,8 @@ export default function ShopProductList() {
                 ${Number(p.price || 0).toLocaleString('es-AR')}
               </p>
               <button
-                className="add-to-cart bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 transition-colors duration-200 w-full text-sm md:text-base"
-                data-product={p.id}
+                className="bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600 transition-colors duration-200 w-full text-sm md:text-base"
+                onClick={() => handleAddToCart(p)}
               >
                 Agregar al carrito
               </button>
