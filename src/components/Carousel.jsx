@@ -76,17 +76,18 @@ export default function Carousel() {
             className="w-full flex-shrink-0 relative flex items-center justify-center"
             style={{ height: "70vh", minHeight: "400px" }}
           >
-            {/* Imagen principal sin bordes ni sombras */}
-            <img
-              src={img.src}
-              alt={img.title || `Imagen ${i + 1}`}
-              className="w-full h-full object-contain"
-              onError={(e) => {
-                e.target.style.display = "none";
-                e.target.nextSibling.style.display = "flex";
-              }}
-            />
-
+     
+{/* Imagen principal sin bordes ni sombras */}
+<img
+  src={img.src}
+  alt={img.title || `Imagen ${i + 1}`}
+  className="w-full h-full object-cover"
+  onError={(e) => {
+    e.target.style.display = "none";
+    e.target.nextSibling.style.display = "flex";
+  }}
+/>
+            
             {/* Fallback en caso de error */}
             <div className="hidden absolute inset-0 items-center justify-center bg-white">
               <div className="text-center p-4">
