@@ -74,7 +74,7 @@ export default function Carousel() {
           <div
             key={img.id}
             className="w-full flex-shrink-0 relative flex items-center justify-center"
-            style={{ height: "70vh", minHeight: "400px" }}
+            style={{ height: "50vh", minHeight: "300px" }}
           >
      
 {/* Imagen principal sin bordes ni sombras */}
