@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Navbar({ onToggleAdmin, onNavigate, currentView }) {
+export default function Navbar({ onToggleAdmin, onNavigate, currentView, onToggleCart, cartItemsCount }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleNavigation = (view) => {
@@ -81,7 +81,31 @@ export default function Navbar({ onToggleAdmin, onNavigate, currentView }) {
             )}
           </div>
 
-         
+          {/* Botones de carrito y administración */}
+          <div className="flex items-center space-x-4">
+            {/* Icono del Carrito */}
+            <button
+              onClick={onToggleCart}
+              className="relative p-2 text-gray-700 hover:text-amber-600 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              {cartItemsCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                  {cartItemsCount}
+                </span>
+              )}
+            </button>
+
+            <button
+              onClick={onToggleAdmin}
+              className="bg-amber-500 text-white px-4 py-2 rounded-md hover:bg-amber-600 transition-colors"
+            >
+              Admin
+            </button>
+          </div>
+
           {/* Botón de menú hamburguesa para móvil */}
           <div className="md:hidden">
             <button
@@ -154,14 +178,54 @@ export default function Navbar({ onToggleAdmin, onNavigate, currentView }) {
                 >
                   Productos
                 </button>
+                
+                {/* Opción de carrito en menú móvil */}
+                <button
+                  onClick={() => {
+                    onToggleCart();
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center text-left text-gray-700 hover:text-amber-600 transition-colors pt-2 border-t border-gray-100"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  Carrito
+                  {cartItemsCount > 0 && (
+                    <span className="ml-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                      {cartItemsCount}
+                    </span>
+                  )}
+                </button>
               </div>
             ) : (
-              <button 
-                onClick={() => handleNavigation("home")}
-                className="text-left text-gray-700 hover:text-amber-600 transition-colors w-full"
-              >
-                Volver al Inicio
-              </button>
+              <>
+                <button 
+                  onClick={() => handleNavigation("home")}
+                  className="text-left text-gray-700 hover:text-amber-600 transition-colors w-full"
+                >
+                  Volver al Inicio
+                </button>
+                
+                {/* Opción de carrito en menú móvil */}
+                <button
+                  onClick={() => {
+                    onToggleCart();
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center text-left text-gray-700 hover:text-amber-600 transition-colors pt-2 border-t border-gray-100 w-full mt-2"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  Carrito
+                  {cartItemsCount > 0 && (
+                    <span className="ml-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                      {cartItemsCount}
+                    </span>
+                  )}
+                </button>
+              </>
             )}
           </div>
         )}
