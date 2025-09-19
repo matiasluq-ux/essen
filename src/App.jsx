@@ -402,6 +402,36 @@ export default function App() {
           </div>
         </div>
       )}
+            {/* Modal Carrito */}
+      {showCart && (
+        <div className="fixed inset-0 z-50 p-4 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+          {/* ...contenido del modal... */}
+        </div>
+      )}
+
+      {/* Botón flotante de WhatsApp */}
+      <a
+        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+          "¡Hola! Quiero más información sobre los productos Essen 🚀"
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-4 right-4 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 animate-bounce"
+      >
+        {/* Icono de WhatsApp */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          className="w-7 h-7"
+        >
+          <path d="M12.04 2c-5.52 0-10 4.45-10 9.94 ...etc" />
+        </svg>
+      </a>
+    </div>
+  );
+}
+
     </div>
   );
 }
