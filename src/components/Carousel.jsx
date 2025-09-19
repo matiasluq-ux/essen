@@ -87,7 +87,7 @@ export default function Carousel() {
               <img
                 src={img.src}
                 alt={img.title || `Imagen ${i + 1}`}
-                className="max-h-full max-w-full object-contain z-10 rounded-lg shadow-lg"
+                className="max-h-full max-w-full object-contain z-10"
                 onError={(e) => {
                   e.target.style.display = 'none';
                   e.target.nextSibling.style.display = 'block';
