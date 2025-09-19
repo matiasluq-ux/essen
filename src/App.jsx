@@ -158,7 +158,8 @@ export default function App() {
         cartItemsCount={cartItemsCount}
       />
 
-      <main className="flex-grow">
+      {/* Contenedor principal con margen superior para compensar el navbar fijo */}
+      <main className="flex-grow mt-16">
         {currentView === "home" ? (
           <>
             {/* Carrusel */}
@@ -336,7 +337,7 @@ export default function App() {
 
       {/* Panel Admin */}
       {showAdmin && (
-        <div className="fixed inset-0 z-50 p-6 bg-black/50 backdrop-blur-sm">
+        <div className="fixed inset-0 z-60 p-6 bg-black/50 backdrop-blur-sm">
           <div className="max-w-3xl mx-auto bg-white rounded shadow">
             <div className="p-4 border-b flex justify-between items-center">
               <h3 className="font-semibold">Panel Admin</h3>
@@ -360,7 +361,7 @@ export default function App() {
 
       {/* Modal Carrito */}
       {showCart && (
-        <div className="fixed inset-0 z-50 p-4 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+        <div className="fixed inset-0 z-60 p-4 bg-black/50 backdrop-blur-sm flex items-center justify-center">
           <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
             <div className="p-4 border-b flex justify-between items-center sticky top-0 bg-white">
               <h3 className="font-semibold text-lg">Tu Carrito de Compras</h3>
@@ -410,7 +411,7 @@ export default function App() {
         )}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-4 right-4 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 animate-bounce"
+        className="fixed bottom-4 right-4 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-60 animate-bounce"
       >
         {/* Icono de WhatsApp */}
         <svg
