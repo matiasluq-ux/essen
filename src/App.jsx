@@ -402,12 +402,6 @@ export default function App() {
           </div>
         </div>
       )}
-            {/* Modal Carrito */}
-      {showCart && (
-        <div className="fixed inset-0 z-50 p-4 bg-black/50 backdrop-blur-sm flex items-center justify-center">
-          {/* ...contenido del modal... */}
-        </div>
-      )}
 
       {/* Botón flotante de WhatsApp */}
       <a
