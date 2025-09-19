@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
-export default function ProductCarousel() {
+export default function ProductCarousel({ addToCart }) {
   const [products, setProducts] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -84,6 +84,15 @@ export default function ProductCarousel() {
     );
   };
 
+  // Función para manejar el agregado al carrito
+  const handleAddToCart = (product) => {
+    if (addToCart) {
+      addToCart(product);
+      // Opcional: mostrar una notificación o feedback visual
+      console.log("Producto agregado al carrito:", product.title);
+    }
+  };
+
   if (loading) {
     return (
       <section className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
@@ -148,8 +157,8 @@ export default function ProductCarousel() {
                         ${product.price.toLocaleString('es-AR')}
                       </p>
                       <button
-                        className="product-carousel-button add-to-cart"
-                        data-product={product.id}
+                        className="product-carousel-button"
+                        onClick={() => handleAddToCart(product)}
                       >
                         Agregar al carrito
                       </button>
