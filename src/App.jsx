@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/navbar.jsx";
 import Carousel from "./components/Carousel.jsx";
 import ProductCarousel from "./components/ProductCarousel.jsx";
@@ -15,20 +15,46 @@ export default function App() {
   const [showAdmin, setShowAdmin] = useState(false);
   const [currentView, setCurrentView] = useState("home");
   const [showCart, setShowCart] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  
+  // Cargar el carrito desde localStorage al inicializar
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const savedCart = localStorage.getItem('essen_cart');
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error('Error loading cart from localStorage:', error);
+      return [];
+    }
+  });
      
+  // Guardar el carrito en localStorage cuando cambie
+  useEffect(() => {
+    try {
+      localStorage.setItem('essen_cart', JSON.stringify(cartItems));
+    } catch (error) {
+      console.error('Error saving cart to localStorage:', error);
+    }
+  }, [cartItems]);
+
   // Función para agregar productos al carrito
   const addToCart = (product) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === product.id);
+      let newItems;
+      
       if (existingItem) {
-        return prevItems.map(item =>
+        newItems = prevItems.map(item =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
+      } else {
+        newItems = [...prevItems, { ...product, quantity: 1 }];
       }
-      return [...prevItems, { ...product, quantity: 1 }];
+      
+      // Mostrar notificación
+      showNotification(`¡${product.title} agregado al carrito!`);
+      return newItems;
     });
   };
 
@@ -49,6 +75,25 @@ export default function App() {
         item.id === productId ? { ...item, quantity } : item
       )
     );
+  };
+
+  // Función para mostrar notificaciones
+  const showNotification = (message) => {
+    // Crear elemento de notificación
+    const notification = document.createElement('div');
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-md z-50 transition-opacity duration-300';
+    notification.textContent = message;
+    
+    // Agregar al DOM
+    document.body.appendChild(notification);
+    
+    // Remover después de 3 segundos
+    setTimeout(() => {
+      notification.style.opacity = '0';
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 3000);
   };
 
   // Calcular el total de items en el carrito
@@ -101,7 +146,7 @@ export default function App() {
                 🚀 ¿Te gustaría emprender sin riesgos y sin inversión?  
                 💬 Escribinos, te estamos esperando para acompañarte en este camino.  
                 <br />
-                😅 Advertencia: sumarse puede causar felicidad, ingresos extra y ataques de entususmo repentinos.  
+                😅 Advertencia: sumarse puede causar felicidad, ingresos extra y ataques de entusiasmo repentinos.  
                 (Acompañado de mates, stickers y muchos audios, claro 😉)
               </p>
             </section>
@@ -205,12 +250,31 @@ export default function App() {
               </button>
             </div>
             <div className="p-4">
-              <Cart 
-                whatsappNumber={WHATSAPP_NUMBER} 
-                cartItems={cartItems}
-                removeFromCart={removeFromCart}
-                updateQuantity={updateQuantity}
-              />
+              {cartItems.length > 0 ? (
+                <Cart 
+                  whatsappNumber={WHATSAPP_NUMBER} 
+                  cartItems={cartItems}
+                  removeFromCart={removeFromCart}
+                  updateQuantity={updateQuantity}
+                />
+              ) : (
+                <div className="text-center py-8">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  <h4 className="text-xl font-semibold mt-4">Tu carrito está vacío</h4>
+                  <p className="text-gray-600 mt-2">Agrega algunos productos para continuar</p>
+                  <button
+                    onClick={() => {
+                      setShowCart(false);
+                      setCurrentView("products");
+                    }}
+                    className="mt-4 bg-amber-500 text-white px-6 py-2 rounded-md hover:bg-amber-600 transition-colors"
+                  >
+                    Ver Productos
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
