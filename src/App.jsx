@@ -15,35 +15,35 @@ export default function App() {
   const [showAdmin, setShowAdmin] = useState(false);
   const [currentView, setCurrentView] = useState("home");
   const [showCart, setShowCart] = useState(false);
-  
-  // Cargar el carrito desde localStorage al inicializar
+
+  // Cargar carrito desde localStorage
   const [cartItems, setCartItems] = useState(() => {
     try {
-      const savedCart = localStorage.getItem('essen_cart');
+      const savedCart = localStorage.getItem("essen_cart");
       return savedCart ? JSON.parse(savedCart) : [];
     } catch (error) {
-      console.error('Error loading cart from localStorage:', error);
+      console.error("Error loading cart from localStorage:", error);
       return [];
     }
   });
-     
-  // Guardar el carrito en localStorage cuando cambie
+
+  // Guardar carrito en localStorage
   useEffect(() => {
     try {
-      localStorage.setItem('essen_cart', JSON.stringify(cartItems));
+      localStorage.setItem("essen_cart", JSON.stringify(cartItems));
     } catch (error) {
-      console.error('Error saving cart to localStorage:', error);
+      console.error("Error saving cart to localStorage:", error);
     }
   }, [cartItems]);
 
-  // Función para agregar productos al carrito
+  // Funciones carrito
   const addToCart = (product) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id);
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.id === product.id);
       let newItems;
-      
+
       if (existingItem) {
-        newItems = prevItems.map(item =>
+        newItems = prevItems.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
@@ -51,57 +51,97 @@ export default function App() {
       } else {
         newItems = [...prevItems, { ...product, quantity: 1 }];
       }
-      
-      // Mostrar notificación
+
       showNotification(`¡${product.title} agregado al carrito!`);
       return newItems;
     });
   };
 
-  // Función para eliminar productos del carrito
   const removeFromCart = (productId) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
+    setCartItems((prevItems) =>
+      prevItems.filter((item) => item.id !== productId)
+    );
   };
 
-  // Función para actualizar la cantidad de un producto
   const updateQuantity = (productId, quantity) => {
     if (quantity <= 0) {
       removeFromCart(productId);
       return;
     }
-    
-    setCartItems(prevItems =>
-      prevItems.map(item =>
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
         item.id === productId ? { ...item, quantity } : item
       )
     );
   };
 
-  // Función para mostrar notificaciones
+  // Notificación visual
   const showNotification = (message) => {
-    // Crear elemento de notificación
-    const notification = document.createElement('div');
-    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-md z-50 transition-opacity duration-300';
+    const notification = document.createElement("div");
+    notification.className =
+      "fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-md z-50 transition-opacity duration-300";
     notification.textContent = message;
-    
-    // Agregar al DOM
     document.body.appendChild(notification);
-    
-    // Remover después de 3 segundos
+
     setTimeout(() => {
-      notification.style.opacity = '0';
+      notification.style.opacity = "0";
       setTimeout(() => {
         document.body.removeChild(notification);
       }, 300);
     }, 3000);
   };
 
-  // Calcular el total de items en el carrito
-  const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-   
-  return (     
+  const cartItemsCount = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
+  // Estado para formulario "Sumate"
+  const [form, setForm] = useState({
+    nombre: "",
+    telefono: "",
+    motivacion: "",
+    sobreVos: "",
+    tiempo: "",
+    interes: "",
+  });
+
+  const handleFormChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const mensaje = `
+📋 Nueva postulación en Essen
+
+👤 Nombre y Apellido: ${form.nombre}
+📞 Teléfono: ${form.telefono}
+
+🎯 Motivación: ${form.motivacion}
+📝 Sobre vos: ${form.sobreVos}
+⏳ Tiempo disponible: ${form.tiempo}
+✨ Interés en emprender: ${form.interes}
+    `;
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+      mensaje
+    )}`;
+    window.open(url, "_blank");
+
+    setForm({
+      nombre: "",
+      telefono: "",
+      motivacion: "",
+      sobreVos: "",
+      tiempo: "",
+      interes: "",
+    });
+  };
+
+  return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-80">
-      {/* Franja promocional beige - Ahora en la parte superior */}
+      {/* Franja promocional */}
       <div className="w-full promo-beige">
         <div className="container mx-auto px-4">
           <p className="promo-beige-text text-sm md:text-base text-center py-2">
@@ -109,24 +149,24 @@ export default function App() {
           </p>
         </div>
       </div>
-      
-      <Navbar 
-        onToggleAdmin={() => setShowAdmin((s) => !s)} 
-        onNavigate={setCurrentView} 
+
+      <Navbar
+        onToggleAdmin={() => setShowAdmin((s) => !s)}
+        onNavigate={setCurrentView}
         currentView={currentView}
         onToggleCart={() => setShowCart(!showCart)}
         cartItemsCount={cartItemsCount}
       />
-           
+
       <main className="flex-grow">
         {currentView === "home" ? (
           <>
-            {/* Carrusel de imágenes */}
+            {/* Carrusel */}
             <section id="inicio" className="w-full">
               <Carousel />
             </section>
 
-            {/* Otras secciones... */}
+            {/* Misión */}
             <section
               id="sobre-nosotros"
               className="max-w-6xl mx-auto mt-10 px-4 sm:px-6 lg:px-8"
@@ -147,13 +187,13 @@ export default function App() {
                 💬 Escribinos, te estamos esperando para acompañarte en este camino.  
                 <br />
                 😅 Advertencia: sumarse puede causar felicidad, ingresos extra y ataques de entusiasmo repentinos.  
-                (Acompañado de mates, stickers y muchos audios, claro 😉)
               </p>
             </section>
 
-            {/* Carrusel de productos destacados */}
+            {/* Productos destacados */}
             <ProductCarousel addToCart={addToCart} />
 
+            {/* Eventos */}
             <section
               id="eventos"
               className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
@@ -167,22 +207,106 @@ export default function App() {
               </p>
             </section>
 
+            {/* Sumate */}
             <section
               id="sumate"
-              className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
+              className="max-w-3xl mx-auto mt-12 px-4 sm:px-6 lg:px-8"
             >
-              <h2 className="text-2xl sm:text-3xl font-semibold text-center">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-6">
                 Sumate a mi equipo
               </h2>
-              <p className="mt-4 text-gray-700 text-center max-w-3xl mx-auto">
-                Quiero sumarme
-                Nombre y Apellido *
-                Teléfono *
-                Tenes alguna meta que te motive a este nuevo camino de emprender??
-                contanos un poco de vos... lo que quieras, de donde sos , que te gusta hacer, si estas trabajando actualmente...
-                cuanto tiempo le podrias dedicar semanalmente? menos de 5 horas , mas de 5 horas..
-                Por que te interesa emprender en essen? (ej ingreso extra, cambia de trabajo, desarrollo personal, quiero liderar mi equipo..etc)
-              </p>
+              <form
+                onSubmit={handleFormSubmit}
+                className="bg-white shadow-lg rounded-lg p-6 space-y-4"
+              >
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Nombre y Apellido *
+                  </label>
+                  <input
+                    type="text"
+                    name="nombre"
+                    value={form.nombre}
+                    onChange={handleFormChange}
+                    required
+                    className="w-full border rounded-lg p-2"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Teléfono *
+                  </label>
+                  <input
+                    type="tel"
+                    name="telefono"
+                    value={form.telefono}
+                    onChange={handleFormChange}
+                    required
+                    className="w-full border rounded-lg p-2"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    ¿Tenés alguna meta que te motive? *
+                  </label>
+                  <textarea
+                    name="motivacion"
+                    value={form.motivacion}
+                    onChange={handleFormChange}
+                    required
+                    rows="2"
+                    className="w-full border rounded-lg p-2"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Contanos un poco de vos *
+                  </label>
+                  <textarea
+                    name="sobreVos"
+                    value={form.sobreVos}
+                    onChange={handleFormChange}
+                    required
+                    rows="2"
+                    className="w-full border rounded-lg p-2"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    ¿Cuánto tiempo le podrías dedicar semanalmente? *
+                  </label>
+                  <select
+                    name="tiempo"
+                    value={form.tiempo}
+                    onChange={handleFormChange}
+                    required
+                    className="w-full border rounded-lg p-2"
+                  >
+                    <option value="">Seleccionar...</option>
+                    <option value="Menos de 5 horas">Menos de 5 horas</option>
+                    <option value="Más de 5 horas">Más de 5 horas</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    ¿Por qué te interesa emprender en Essen? *
+                  </label>
+                  <textarea
+                    name="interes"
+                    value={form.interes}
+                    onChange={handleFormChange}
+                    required
+                    rows="2"
+                    className="w-full border rounded-lg p-2"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-amber-600 text-white py-2 px-4 rounded-lg hover:bg-amber-700 transition"
+                >
+                  Enviar por WhatsApp
+                </button>
+              </form>
             </section>
           </>
         ) : (
@@ -197,10 +321,10 @@ export default function App() {
           </section>
         )}
 
-        {/* Carrito (siempre visible) */}
+        {/* Carrito fijo */}
         <section className="max-w-6xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
-          <Cart 
-            whatsappNumber={WHATSAPP_NUMBER} 
+          <Cart
+            whatsappNumber={WHATSAPP_NUMBER}
             cartItems={cartItems}
             removeFromCart={removeFromCart}
             updateQuantity={updateQuantity}
@@ -234,7 +358,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Modal del Carrito */}
+      {/* Modal Carrito */}
       {showCart && (
         <div className="fixed inset-0 z-50 p-4 bg-black/50 backdrop-blur-sm flex items-center justify-center">
           <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -244,26 +368,25 @@ export default function App() {
                 onClick={() => setShowCart(false)}
                 className="text-gray-600 hover:text-gray-800"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                ✕
               </button>
             </div>
             <div className="p-4">
               {cartItems.length > 0 ? (
-                <Cart 
-                  whatsappNumber={WHATSAPP_NUMBER} 
+                <Cart
+                  whatsappNumber={WHATSAPP_NUMBER}
                   cartItems={cartItems}
                   removeFromCart={removeFromCart}
                   updateQuantity={updateQuantity}
                 />
               ) : (
                 <div className="text-center py-8">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                  <h4 className="text-xl font-semibold mt-4">Tu carrito está vacío</h4>
-                  <p className="text-gray-600 mt-2">Agrega algunos productos para continuar</p>
+                  <h4 className="text-xl font-semibold mt-4">
+                    Tu carrito está vacío
+                  </h4>
+                  <p className="text-gray-600 mt-2">
+                    Agregá algunos productos para continuar
+                  </p>
                   <button
                     onClick={() => {
                       setShowCart(false);
@@ -282,3 +405,4 @@ export default function App() {
     </div>
   );
 }
+
